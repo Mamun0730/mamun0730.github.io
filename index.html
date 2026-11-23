@@ -4104,10 +4104,13 @@
       let hadActiveConversation = false;
       const mexaChatHistory = [];
 
+      // Paste your Gemini API key inside the quotes below if you want visitors to chat immediately:
+      const DEFAULT_GEMINI_API_KEY = "";
       const STORAGE_KEY_API = "mexa_gemini_api_key_v1";
-      let userGeminiApiKey = "";
+      let userGeminiApiKey = DEFAULT_GEMINI_API_KEY;
       try {
-        userGeminiApiKey = localStorage.getItem(STORAGE_KEY_API) || "";
+        const savedKey = localStorage.getItem(STORAGE_KEY_API);
+        if (savedKey) userGeminiApiKey = savedKey;
         if (mexaApiKeyInput && userGeminiApiKey) mexaApiKeyInput.value = userGeminiApiKey;
       } catch (err) {}
 
@@ -4120,9 +4123,9 @@
 
       if (mexaSaveKeyBtn && mexaApiKeyInput) {
         mexaSaveKeyBtn.addEventListener("click", () => {
-          userGeminiApiKey = mexaApiKeyInput.value.trim();
+          userGeminiApiKey = mexaApiKeyInput.value.trim() || DEFAULT_GEMINI_API_KEY;
           try {
-            if (userGeminiApiKey) localStorage.setItem(STORAGE_KEY_API, userGeminiApiKey);
+            if (mexaApiKeyInput.value.trim()) localStorage.setItem(STORAGE_KEY_API, userGeminiApiKey);
             else localStorage.removeItem(STORAGE_KEY_API);
           } catch (err) {}
           if (mexaKeyBar) mexaKeyBar.classList.remove("show");
@@ -4768,7 +4771,7 @@ Portfolio Context:
         mexaChatHistory.push({ role: "user", parts: [{ text: userText + langHint }] });
         if (mexaChatHistory.length > 14) mexaChatHistory.splice(0, mexaChatHistory.length - 14);
 
-        const apiKey = userGeminiApiKey || "";
+        const apiKey = userGeminiApiKey || DEFAULT_GEMINI_API_KEY || "";
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
         const payload = {
@@ -5010,12 +5013,13 @@ server.listen(PORT, () => console.log(\`MEXA AI live at http://localhost:\${PORT
     </form>
   </div>
   <script>
-    let apiKey = localStorage.getItem("mexa_key") || "";
+    const DEFAULT_API_KEY = ""; // <-- Paste your AIza... key here!
+    let apiKey = localStorage.getItem("mexa_key") || DEFAULT_API_KEY;
     const history = [];
     const log = document.getElementById("log");
     document.getElementById("keyBtn").onclick = () => {
       const k = prompt("Paste your Gemini API Key (AIza...):", apiKey);
-      if (k !== null) { apiKey = k.trim(); localStorage.setItem("mexa_key", apiKey); }
+      if (k !== null) { apiKey = k.trim() || DEFAULT_API_KEY; localStorage.setItem("mexa_key", apiKey); }
     };
     function add(text, cls) {
       const d = document.createElement("div");
