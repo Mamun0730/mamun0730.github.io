@@ -43,10 +43,18 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
+      transition: transform 0.65s var(--spring), filter 0.5s ease;
     }
 
     body.loading {
       overflow: hidden;
+    }
+
+    body.boss-zoom-out main,
+    body.boss-zoom-out header.nav {
+      transform: scale(0.92);
+      filter: blur(2px) brightness(0.72);
+      transition: transform 0.65s var(--spring), filter 0.5s ease;
     }
 
     a {
@@ -375,6 +383,7 @@
     main {
       position: relative;
       z-index: 1;
+      transition: transform 0.65s var(--spring), filter 0.5s ease;
     }
 
     /* ================= NAVBAR ================= */
@@ -397,6 +406,7 @@
       opacity: 0;
       transform: translate3d(0, -10px, 0);
       will-change: transform, opacity;
+      transition: transform 0.65s var(--spring), filter 0.5s ease;
     }
 
     body.ready .nav {
@@ -427,7 +437,7 @@
       transform: translateX(-50%);
       display: flex;
       align-items: center;
-      gap: 26px;
+      gap: 24px;
       font-size: 14px;
       font-weight: 500;
       letter-spacing: -0.005em;
@@ -453,12 +463,12 @@
       align-items: center;
       gap: 6px;
       height: 32px;
-      padding: 0 11px;
+      padding: 0 10px;
       border-radius: 999px;
       background: rgba(8, 8, 8, 0.06);
       border: 1px solid rgba(8, 8, 8, 0.1);
       color: var(--ink);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
       letter-spacing: 0.04em;
       cursor: pointer;
@@ -557,7 +567,6 @@
       opacity: 1;
     }
 
-    /* Mobile & Tablet Menu Button + Collapsible Drawer */
     .nav-menu-btn {
       display: none;
       width: 38px;
@@ -814,14 +823,14 @@
       transform: scaleX(1);
     }
 
-    /* ================= 3D MONOCHROME CUBE SHOWCASE ================= */
+    /* ================= 60FPS HARDWARE-ACCELERATED 3D CUBE ================= */
     .hero-cube-stage {
       position: absolute;
       right: calc(var(--gut) + 3.5vw);
       top: 18.5vh;
       width: 210px;
       height: 210px;
-      perspective: 1000px;
+      perspective: 1100px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -830,6 +839,8 @@
       z-index: 4;
       cursor: grab;
       touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .hero-cube-stage:active {
@@ -837,7 +848,7 @@
     }
 
     body.ready .hero-cube-stage {
-      animation: cubeStagePop 1s var(--spring) 0.45s forwards;
+      animation: cubeStagePop 0.9s var(--spring) 0.35s forwards;
     }
 
     @keyframes cubeStagePop {
@@ -875,27 +886,16 @@
       width: 132px;
       height: 132px;
       transform-style: preserve-3d;
-      animation: cubeFloatSpin 14s linear infinite;
-      transition: transform 0.25s ease;
+      -webkit-transform-style: preserve-3d;
       will-change: transform;
-    }
-
-    .hero-cube-stage:hover .cube-assembly {
-      animation-duration: 5s;
-    }
-
-    @keyframes cubeFloatSpin {
-      0% { transform: rotateX(-24deg) rotateY(0deg) rotateZ(0deg); }
-      50% { transform: rotateX(22deg) rotateY(180deg) rotateZ(8deg); }
-      100% { transform: rotateX(-24deg) rotateY(360deg) rotateZ(0deg); }
+      backface-visibility: visible;
     }
 
     .cube-face {
       position: absolute;
       inset: 0;
       border: 1.5px solid #080808;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(8, 8, 8, 0.14));
-      backdrop-filter: blur(4px);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(228, 228, 231, 0.88));
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -905,33 +905,37 @@
       font-weight: 700;
       letter-spacing: 0.16em;
       color: #080808;
-      box-shadow: inset 0 0 22px rgba(8, 8, 8, 0.08);
+      box-shadow: inset 0 0 18px rgba(8, 8, 8, 0.08);
       user-select: none;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     .cube-face.dark {
-      background: linear-gradient(135deg, rgba(8, 8, 8, 0.92), rgba(38, 38, 38, 0.82));
+      background: linear-gradient(135deg, #0d0d10, #27272a);
       color: #ffffff;
       border-color: #ffffff;
     }
 
-    .cube-face.front  { transform: translateZ(66px); }
-    .cube-face.back   { transform: rotateY(180deg) translateZ(66px); }
-    .cube-face.right  { transform: rotateY(90deg) translateZ(66px); }
-    .cube-face.left   { transform: rotateY(-90deg) translateZ(66px); }
-    .cube-face.top    { transform: rotateX(90deg) translateZ(66px); }
-    .cube-face.bottom { transform: rotateX(-90deg) translateZ(66px); }
+    .cube-face.front  { transform: translate3d(0, 0, 66px); }
+    .cube-face.back   { transform: rotateY(180deg) translate3d(0, 0, 66px); }
+    .cube-face.right  { transform: rotateY(90deg) translate3d(0, 0, 66px); }
+    .cube-face.left   { transform: rotateY(-90deg) translate3d(0, 0, 66px); }
+    .cube-face.top    { transform: rotateX(90deg) translate3d(0, 0, 66px); }
+    .cube-face.bottom { transform: rotateX(-90deg) translate3d(0, 0, 66px); }
 
     .inner-cube {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 58px;
-      height: 58px;
-      margin: -29px 0 0 -29px;
+      width: 54px;
+      height: 54px;
+      margin: -27px 0 0 -27px;
       transform-style: preserve-3d;
-      animation: innerCubeSpin 8s linear infinite reverse;
+      -webkit-transform-style: preserve-3d;
+      animation: innerCubeSpin 9s linear infinite reverse;
       will-change: transform;
+      pointer-events: none;
     }
 
     @keyframes innerCubeSpin {
@@ -945,14 +949,15 @@
       background: #080808;
       border: 1px solid #ffffff;
       opacity: 0.92;
+      backface-visibility: hidden;
     }
 
-    .inner-face.f { transform: translateZ(29px); }
-    .inner-face.b { transform: rotateY(180deg) translateZ(29px); }
-    .inner-face.r { transform: rotateY(90deg) translateZ(29px); }
-    .inner-face.l { transform: rotateY(-90deg) translateZ(29px); }
-    .inner-face.t { transform: rotateX(90deg) translateZ(29px); }
-    .inner-face.d { transform: rotateX(-90deg) translateZ(29px); }
+    .inner-face.f { transform: translate3d(0, 0, 27px); }
+    .inner-face.b { transform: rotateY(180deg) translate3d(0, 0, 27px); }
+    .inner-face.r { transform: rotateY(90deg) translate3d(0, 0, 27px); }
+    .inner-face.l { transform: rotateY(-90deg) translate3d(0, 0, 27px); }
+    .inner-face.t { transform: rotateX(90deg) translate3d(0, 0, 27px); }
+    .inner-face.d { transform: rotateX(-90deg) translate3d(0, 0, 27px); }
 
     .trust {
       position: absolute;
@@ -1045,7 +1050,6 @@
       }
     }
 
-    /* 4x2 Academic & Technical Grid */
     .logos {
       position: absolute;
       right: 0;
@@ -1252,6 +1256,7 @@
       font-size: 13.5px;
       font-weight: 600;
       letter-spacing: -0.01em;
+      cursor: pointer;
       transition: transform 0.3s var(--spring), background 0.25s ease, border-color 0.25s ease;
     }
 
@@ -1268,7 +1273,6 @@
       border-radius: 16px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.14);
-      backdrop-filter: blur(8px);
       transition: border-color 0.25s ease, background 0.25s ease;
     }
 
@@ -1550,12 +1554,84 @@
       backdrop-filter: blur(8px);
     }
 
-    /* ================= MEXA (3D BLUE DORAEMON ROBOT & SMART AI CHAT) ================= */
+    /* ================= CHAMPAGNE CORK & SCREEN SPLASH FX ================= */
+    .champagne-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 98;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .champagne-cork {
+      position: fixed;
+      left: 50%;
+      top: 52%;
+      width: 22px;
+      height: 30px;
+      border-radius: 6px 6px 4px 4px;
+      background: linear-gradient(135deg, #f59e0b, #b45309);
+      border: 2px solid #451a03;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.4);
+      z-index: 102;
+      pointer-events: none;
+    }
+
+    .champagne-cork.flying {
+      animation: corkFlyOut 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes corkFlyOut {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(0deg) scale(0.7);
+      }
+      45% {
+        opacity: 1;
+        transform: translate(18vw, -36vh) rotate(240deg) scale(1.65);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(44vw, -48vh) rotate(520deg) scale(2.4);
+      }
+    }
+
+    .champagne-drop {
+      position: fixed;
+      border-radius: 50% 50% 48% 52% / 58% 54% 46% 42%;
+      background: radial-gradient(circle at 32% 28%, rgba(254, 249, 195, 0.96), rgba(250, 204, 21, 0.78) 55%, rgba(217, 119, 6, 0.42));
+      box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.9), 0 6px 16px rgba(245, 158, 11, 0.35);
+      pointer-events: none;
+      animation: splashDrip 3.4s ease-out forwards;
+    }
+
+    @keyframes splashDrip {
+      0% {
+        opacity: 0;
+        transform: scale(0.1) translateY(-12px);
+      }
+      12% {
+        opacity: 0.95;
+        transform: scale(1.06) translateY(0);
+      }
+      85% {
+        opacity: 0.78;
+        transform: scale(1) translateY(28px);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.85) translateY(52px);
+      }
+    }
+
+    /* ================= MEXA (3D CIGAR-SMOKING BLUE DORAEMON BOSS) ================= */
     .mexa-backdrop {
       position: fixed;
       inset: 0;
       z-index: 90;
-      background: rgba(8, 8, 8, 0.55);
+      background: radial-gradient(circle at center, rgba(24, 24, 27, 0.62) 0%, rgba(0, 0, 0, 0.84) 100%);
       backdrop-filter: blur(8px);
       opacity: 0;
       pointer-events: none;
@@ -1607,7 +1683,146 @@
       right: calc(50vw + 46px);
       bottom: 50vh;
       align-items: center;
-      transform: translate3d(0, 50%, 0) rotate(0deg) scale(1.68);
+      transform: translate3d(0, 50%, 0) rotate(0deg) scale(1.65);
+    }
+
+    /* Boss Smoke Center-Stage Leap + Zoom-Out Attitude Mode */
+    body.ready .mexa-dock.boss-center {
+      animation: mexaBossLeap 0.72s var(--spring) forwards !important;
+      opacity: 1 !important;
+      right: 50%;
+      bottom: 50%;
+      align-items: center;
+      z-index: 106;
+    }
+
+    @keyframes mexaBossLeap {
+      0% {
+        transform: translate3d(50%, 50%, 0) scale(1);
+      }
+      45% {
+        transform: translate3d(50%, 15%, 0) rotate(-6deg) scale(2.35);
+      }
+      100% {
+        transform: translate3d(50%, 44%, 0) rotate(0deg) scale(2.15);
+      }
+    }
+
+    .mexa-sunglasses {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.85);
+      transition: opacity 0.32s ease, transform 0.4s var(--spring);
+      pointer-events: none;
+    }
+
+    .mexa-dock.boss-center .mexa-sunglasses {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .boss-stage-controls {
+      pointer-events: auto;
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 10px;
+      background: rgba(10, 10, 14, 0.92);
+      border: 1px solid rgba(251, 146, 60, 0.45);
+      padding: 7px 10px;
+      border-radius: 999px;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.65);
+      transform: scale(0.54);
+      transform-origin: top center;
+    }
+
+    .mexa-dock.boss-center .boss-stage-controls {
+      display: flex;
+    }
+
+    .boss-stage-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.2s var(--spring);
+    }
+
+    .boss-stage-btn:hover {
+      transform: scale(1.06);
+    }
+
+    .boss-stage-btn.song {
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      color: #ffffff;
+    }
+
+    .boss-stage-btn.champagne {
+      background: linear-gradient(135deg, #facc15, #d97706);
+      color: #080808;
+    }
+
+    .boss-stage-btn.exit {
+      background: rgba(255, 255, 255, 0.14);
+      color: #ffffff;
+    }
+
+    /* Cigar, Smoke & Side Flames Animations */
+    .cigar-ember {
+      animation: emberGlow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes emberGlow {
+      0% { fill: #ea580c; filter: drop-shadow(0 0 2px #f97316); }
+      100% { fill: #fef08a; filter: drop-shadow(0 0 8px #ef4444); }
+    }
+
+    .smoke-puff-1 {
+      animation: smokeRise1 3.1s ease-out infinite;
+    }
+
+    .smoke-puff-2 {
+      animation: smokeRise2 3.6s ease-out 1.1s infinite;
+    }
+
+    .smoke-puff-3 {
+      animation: smokeRise3 4s ease-out 2.1s infinite;
+    }
+
+    @keyframes smokeRise1 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0.4); }
+      25% { opacity: 0.78; }
+      100% { opacity: 0; transform: translate(16px, -38px) scale(2.1); }
+    }
+
+    @keyframes smokeRise2 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0.35); }
+      25% { opacity: 0.68; }
+      100% { opacity: 0; transform: translate(24px, -46px) scale(2.4); }
+    }
+
+    @keyframes smokeRise3 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0.45); }
+      25% { opacity: 0.65; }
+      100% { opacity: 0; transform: translate(10px, -42px) scale(2.2); }
+    }
+
+    .side-flame-left {
+      transform-origin: 18px 168px;
+      animation: flameFlicker 1.1s ease-in-out infinite alternate;
+    }
+
+    .side-flame-right {
+      transform-origin: 152px 168px;
+      animation: flameFlicker 0.95s ease-in-out 0.35s infinite alternate;
+    }
+
+    @keyframes flameFlicker {
+      0% { transform: scaleY(0.88) scaleX(0.95) skewX(-3deg); opacity: 0.82; }
+      100% { transform: scaleY(1.16) scaleX(1.06) skewX(4deg); opacity: 1; }
     }
 
     .mexa-left-arm {
@@ -1644,6 +1859,34 @@
       100% { opacity: 0.75; transform: scale(1.05); }
     }
 
+    .mexa-action-bar {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+      margin-right: 14px;
+    }
+
+    .mexa-boss-trigger {
+      background: linear-gradient(135deg, #09090b, #27272a);
+      color: #fde047;
+      border: 1.5px solid #f59e0b;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      box-shadow: 0 10px 22px -6px rgba(245, 158, 11, 0.5);
+      transition: transform 0.25s var(--spring), background 0.2s ease;
+    }
+
+    .mexa-boss-trigger:hover {
+      transform: translateY(-2px) scale(1.05);
+      background: #18181b;
+    }
+
     .mexa-speech {
       pointer-events: auto;
       position: relative;
@@ -1651,15 +1894,15 @@
       color: #080808;
       border: 1.5px solid #080808;
       border-radius: 18px;
-      padding: 10px 15px;
-      font-size: 13px;
-      font-weight: 500;
+      padding: 9px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
       letter-spacing: -0.01em;
       box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.35);
-      margin-bottom: 8px;
-      margin-right: 18px;
+      margin-bottom: 7px;
+      margin-right: 16px;
       cursor: pointer;
-      max-width: 250px;
+      max-width: 255px;
       opacity: 0;
       transform: translate3d(0, 10px, 0) scale(0.92);
     }
@@ -1812,7 +2055,7 @@
     body.cyber-mode .cube-face {
       border-color: #ffffff;
       color: #ffffff;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(8, 8, 8, 0.8));
+      background: linear-gradient(135deg, #18181b, #27272a);
     }
 
     .mexa-badge {
@@ -1859,13 +2102,13 @@
       100% { transform: scaleX(1); }
     }
 
-    /* MEXA Enhanced Chat Drawer */
+    /* MEXA Smart AI Chat Drawer */
     .mexa-drawer {
       position: fixed;
       left: calc(50vw - 8px);
       top: 50%;
       z-index: 105;
-      width: min(440px, calc(100vw - 28px));
+      width: min(445px, calc(100vw - 28px));
       background: #0b0b0d;
       color: #ffffff;
       border: 1.5px solid rgba(56, 189, 248, 0.45);
@@ -1892,8 +2135,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 6px;
-      padding: 12px 15px;
+      gap: 4px;
+      padding: 11px 13px;
       background: #141418;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
@@ -1901,16 +2144,16 @@
     .mexa-head-title {
       display: flex;
       align-items: center;
-      gap: 7px;
-      font-size: 12.5px;
-      font-weight: 600;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
       min-width: 0;
     }
 
     .mexa-head-controls {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
       flex-shrink: 0;
     }
 
@@ -1923,20 +2166,32 @@
       flex-shrink: 0;
     }
 
-    .mexa-reset-btn {
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.16);
+    .mexa-pill-sm {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       color: #e4e4e7;
       border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 10.5px;
-      font-weight: 600;
+      padding: 3px 7px;
+      font-size: 10px;
+      font-weight: 700;
       cursor: pointer;
+      white-space: nowrap;
       transition: background 0.2s ease, color 0.2s ease;
     }
 
-    .mexa-reset-btn:hover {
+    .mexa-pill-sm:hover {
       background: #ffffff;
+      color: #080808;
+    }
+
+    .mexa-pill-sm.zip {
+      background: rgba(250, 204, 21, 0.16);
+      border-color: rgba(250, 204, 21, 0.45);
+      color: #fde047;
+    }
+
+    .mexa-pill-sm.zip:hover {
+      background: #facc15;
       color: #080808;
     }
 
@@ -1955,14 +2210,13 @@
       border: 1px solid rgba(56, 189, 248, 0.35);
       color: #7dd3fc;
       border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 10.5px;
-      font-weight: 600;
+      padding: 3px 7px;
+      font-size: 10px;
+      font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      transition: background 0.2s ease, color 0.2s ease;
+      gap: 3px;
     }
 
     .mexa-voice-toggle.muted {
@@ -1976,12 +2230,17 @@
       border: 1px solid rgba(255, 255, 255, 0.22);
       color: #ffffff;
       border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 10.5px;
+      padding: 3px 7px;
+      font-size: 10px;
       font-weight: 700;
       cursor: pointer;
-      letter-spacing: 0.04em;
-      transition: background 0.2s ease, color 0.2s ease;
+      letter-spacing: 0.03em;
+    }
+
+    .mexa-lang-toggle.bh {
+      background: #f97316;
+      color: #ffffff;
+      border-color: #fb923c;
     }
 
     .mexa-lang-toggle.hi {
@@ -1993,6 +2252,93 @@
       background: #38bdf8;
       color: #080808;
       border-color: #38bdf8;
+    }
+
+    /* API Key Inline Bar */
+    .mexa-key-bar {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: #18181c;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mexa-key-bar.show {
+      display: flex;
+    }
+
+    .mexa-key-bar input {
+      flex: 1;
+      background: #09090b;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: #ffffff;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .mexa-key-bar button {
+      background: #38bdf8;
+      color: #080808;
+      border: none;
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Live Bhojpuri Song Equalizer Banner */
+    .mexa-song-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 14px;
+      background: linear-gradient(90deg, rgba(249, 115, 22, 0.24), rgba(234, 88, 12, 0.14));
+      border-bottom: 1px solid rgba(251, 146, 60, 0.35);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #fed7aa;
+    }
+
+    .mexa-song-bar.active {
+      display: flex;
+    }
+
+    .eq-bars {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 13px;
+    }
+
+    .eq-bars span {
+      width: 3px;
+      background: #fb923c;
+      border-radius: 2px;
+      animation: eqDance 0.45s ease-in-out infinite alternate;
+    }
+
+    .eq-bars span:nth-child(2) { animation-delay: 0.15s; }
+    .eq-bars span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes eqDance {
+      0% { height: 3px; }
+      100% { height: 13px; }
+    }
+
+    .mexa-song-stop {
+      background: #ef4444;
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 10.5px;
+      font-weight: 700;
+      cursor: pointer;
     }
 
     .mexa-dock.speaking .mexa-mouth-open {
@@ -2027,7 +2373,6 @@
       justify-content: center;
       cursor: pointer;
       flex-shrink: 0;
-      transition: background 0.2s ease, transform 0.2s ease;
     }
 
     .mexa-mic-btn.listening {
@@ -2037,12 +2382,12 @@
     }
 
     .mexa-log {
-      max-height: 270px;
+      max-height: 255px;
       overflow-y: auto;
-      padding: 14px;
+      padding: 13px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
       font-size: 13px;
       line-height: 1.5;
       overscroll-behavior: contain;
@@ -2050,7 +2395,7 @@
 
     .msg-bot,
     .msg-user {
-      padding: 10px 13px;
+      padding: 9px 13px;
       border-radius: 15px;
       max-width: 90%;
       word-break: break-word;
@@ -2129,8 +2474,8 @@
     .mexa-chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      padding: 0 14px 12px;
+      gap: 5px;
+      padding: 0 13px 11px;
     }
 
     .mexa-chip {
@@ -2138,8 +2483,8 @@
       color: #e4e4e7;
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 11px;
+      padding: 5px 9px;
+      font-size: 10.5px;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease;
     }
@@ -2147,6 +2492,17 @@
     .mexa-chip:hover {
       background: #ffffff;
       color: #080808;
+    }
+
+    .mexa-chip.bhojpuri {
+      background: rgba(249, 115, 22, 0.16);
+      border-color: rgba(251, 146, 60, 0.45);
+      color: #fed7aa;
+    }
+
+    .mexa-chip.bhojpuri:hover {
+      background: #f97316;
+      color: #ffffff;
     }
 
     .mexa-form {
@@ -2182,9 +2538,7 @@
     }
 
     /* ================= ADAPTIVE DEVICE & PERFORMANCE MODES ================= */
-    html[data-perf="eco"] .cube-face,
     html[data-perf="eco"] .nav,
-    html[data-perf="eco"] .lab-project-card,
     html[data-perf="eco"] .mobile-nav-drawer,
     html[data-perf="eco"] .loader-pill {
       backdrop-filter: none !important;
@@ -2245,11 +2599,9 @@
         position: relative;
         right: auto;
         top: auto;
-        width: 156px;
-        height: 156px;
+        width: 164px;
+        height: 164px;
         align-self: flex-start;
-        transform: scale(0.84);
-        transform-origin: left center;
       }
 
       .trust {
@@ -2351,9 +2703,8 @@
       }
 
       .hero-cube-stage {
-        width: 130px;
-        height: 130px;
-        transform: scale(0.72);
+        width: 146px;
+        height: 146px;
       }
 
       .trust {
@@ -2392,7 +2743,7 @@
       }
 
       .mexa-dock {
-        right: 8px;
+        right: 6px;
         bottom: calc(8px + var(--safe-bottom));
         transform: scale(0.8);
         transform-origin: bottom right;
@@ -2400,24 +2751,30 @@
 
       .mexa-speech {
         max-width: 210px;
-        font-size: 12px;
-        padding: 8px 12px;
+        font-size: 11.5px;
+        padding: 8px 11px;
         margin-right: 12px;
       }
 
       body.ready .mexa-dock.expanded {
         right: 50%;
         bottom: auto;
-        top: calc(14px + var(--safe-top));
-        transform: translate3d(50%, 0, 0) scale(1.06);
+        top: calc(10px + var(--safe-top));
+        transform: translate3d(50%, 0, 0) scale(0.95);
         transform-origin: top center;
+      }
+
+      body.ready .mexa-dock.boss-center {
+        right: 50%;
+        bottom: 50%;
+        transform: translate3d(50%, 42%, 0) scale(1.48);
       }
 
       .mexa-drawer {
         left: 50%;
         top: auto;
-        bottom: calc(12px + var(--safe-bottom));
-        width: calc(100vw - 24px);
+        bottom: calc(10px + var(--safe-bottom));
+        width: calc(100vw - 20px);
         transform-origin: bottom center;
         transform: translate3d(-50%, 40px, 0) scale(0.1);
       }
@@ -2427,7 +2784,7 @@
       }
 
       .mexa-log {
-        max-height: 34vh;
+        max-height: 33vh;
       }
 
       .lab-modal {
@@ -2441,18 +2798,6 @@
       .lab-modal-foot {
         padding-left: 14px;
         padding-right: 14px;
-      }
-    }
-
-    @media (max-height: 520px) and (orientation: landscape) {
-      .hero {
-        height: auto;
-        min-height: 100svh;
-        padding-top: 84px;
-        padding-bottom: 24px;
-      }
-      .mexa-log {
-        max-height: 26vh;
       }
     }
   </style>
@@ -2515,7 +2860,7 @@
     </nav>
 
     <div class="nav-right">
-      <button type="button" class="adapt-pill" id="adapt-pill" title="Adaptive Device & Smoothness Engine — Click to toggle Studio / Lite FX">
+      <button type="button" class="adapt-pill" id="adapt-pill" title="Adaptive Device & Smoothness Engine">
         <span class="adapt-dot"></span>
         <span id="adapt-pill-label">AUTO</span>
       </button>
@@ -2553,7 +2898,7 @@
     <a href="#hero" class="mob-nav-link"><span>Overview</span><span>&#8599;</span></a>
     <a href="#statement" class="mob-nav-link"><span>Mission</span><span>&#8599;</span></a>
     <a href="#split" class="mob-nav-link"><span>Academics &amp; C Lab</span><span>&#8599;</span></a>
-    <a href="#mexa-drawer" id="mob-ai-chat-link" class="mob-nav-link"><span>MEXA AI Chat (EN / বাং / हिं)</span><span>&#8599;</span></a>
+    <a href="#mexa-drawer" id="mob-ai-chat-link" class="mob-nav-link"><span>MEXA AI Chat (भोजपुरी / हिं / EN)</span><span>&#8599;</span></a>
     <a href="https://github.com/Mamun0730" target="_blank" rel="noopener noreferrer" class="mob-nav-link"><span>GitHub (@Mamun0730)</span><span>&#8599;</span></a>
     <a href="https://www.linkedin.com/in/mamun-ahamed-286b61438" target="_blank" rel="noopener noreferrer" class="mob-nav-link"><span>LinkedIn Profile</span><span>&#8599;</span></a>
     <div class="mobile-device-info">
@@ -2569,8 +2914,8 @@
         Meet <span class="name-highlight" id="mamun-name">Mamun,</span> Data Science<br />&amp; Cybersecurity student
       </h1>
 
-      <!-- 3D Black & White Interactive Cube Assembly (Supports Touch Drag & Cursor Tilt) -->
-      <div class="hero-cube-stage" id="hero-cube-stage" title="Drag or hover to rotate 3D Cube">
+      <!-- 60fps Hardware-Accelerated 3D Cube Assembly -->
+      <div class="hero-cube-stage" id="hero-cube-stage" title="Drag or touch to spin 3D Cube with inertia">
         <div class="cube-orbit-ring"></div>
         <div class="cube-assembly" id="cube-assembly">
           <div class="cube-face front"><span>MAMUN</span><span style="font-size:8px;opacity:.6;margin-top:3px;">01 // DATA</span></div>
@@ -2764,7 +3109,7 @@
           <h3>Connect</h3>
           <div>
             <p>
-              <strong>Open to internships, projects &amp; tech networking.</strong> Explore my repositories on GitHub or connect directly via LinkedIn.
+              <strong>Open to internships, projects &amp; tech networking.</strong> Explore my repositories on GitHub, connect via LinkedIn, or download your own standalone MEXA AI `.ZIP` kit.
             </p>
             <div class="social-actions">
               <a
@@ -2789,6 +3134,9 @@
                 </svg>
                 <span>GitHub</span>
               </a>
+              <button type="button" class="github-btn" id="section-zip-dl-btn" style="border-color: rgba(250, 204, 21, 0.45); color: #fde047;">
+                <span>📦 Download MEXA AI (.ZIP)</span>
+              </button>
             </div>
           </div>
         </div>
@@ -2838,18 +3186,28 @@
     </div>
   </div>
 
+  <!-- Champagne Screen Splash & Cork Container -->
+  <div class="champagne-overlay" id="champagne-overlay" aria-hidden="true"></div>
+  <div class="champagne-cork" id="champagne-cork" aria-hidden="true"></div>
+
   <!-- MEXA Interactive Stage Backdrop -->
   <div class="mexa-backdrop" id="mexa-backdrop" aria-hidden="true"></div>
   <div class="teleport-flash" id="teleport-flash" aria-hidden="true"></div>
 
-  <!-- MEXA: 3D Full-Body Sitting Blue Doraemon Robot -->
+  <!-- MEXA: 3D Cigar-Smoking Blue Doraemon Boss with Side Flames -->
   <div class="mexa-dock" id="mexa-dock">
     <div class="mexa-speech" id="mexa-speech" role="button" tabindex="0">
-      Hi! I'm MEXA — tap me to open AI Chat! 👋
+      प्रणाम! हम MEXA बानी — भोजपुरी, हिंदी या English में बतियाईं! 🔥
     </div>
 
-    <button type="button" class="mexa-bot-btn" id="mexa-btn" aria-label="Tap MEXA to open 4D Pocket AI Assistant">
-      <svg width="146" height="172" viewBox="0 0 170 204" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="mexa-action-bar" id="mexa-action-bar">
+      <button type="button" class="mexa-boss-trigger" id="mexa-boss-btn" title="Leap MEXA to center stage with cigar & champagne splash!">
+        🍾🔥 Boss Smoke
+      </button>
+    </div>
+
+    <button type="button" class="mexa-bot-btn" id="mexa-btn" aria-label="Tap MEXA to open AI Assistant">
+      <svg width="154" height="182" viewBox="0 0 170 206" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="doraBlue" cx="34%" cy="26%" r="72%">
             <stop offset="0%" stop-color="#7dd3fc" />
@@ -2872,12 +3230,34 @@
             <stop offset="48%" stop-color="#eab308" />
             <stop offset="100%" stop-color="#713f12" />
           </radialGradient>
+          <linearGradient id="flameGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#dc2626" />
+            <stop offset="50%" stop-color="#f97316" />
+            <stop offset="100%" stop-color="#fef08a" />
+          </linearGradient>
+          <linearGradient id="cigarBody" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#451a03" />
+            <stop offset="65%" stop-color="#78350f" />
+            <stop offset="100%" stop-color="#92400e" />
+          </linearGradient>
           <radialGradient id="floorShadow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="rgba(8,8,8,0.42)" />
-            <stop offset="70%" stop-color="rgba(8,8,8,0.14)" />
+            <stop offset="0%" stop-color="rgba(8,8,8,0.45)" />
+            <stop offset="70%" stop-color="rgba(8,8,8,0.16)" />
             <stop offset="100%" stop-color="rgba(8,8,8,0)" />
           </radialGradient>
         </defs>
+
+        <!-- Ambient Side Flames -->
+        <g class="side-flame-left">
+          <path d="M18 172 C8 156 12 138 22 124 C20 138 28 144 26 156 C32 148 34 136 30 128 C40 142 38 164 24 174 Z" fill="url(#flameGrad)" />
+          <circle cx="14" cy="116" r="2.2" fill="#facc15" />
+          <circle cx="28" cy="108" r="1.8" fill="#fb923c" />
+        </g>
+        <g class="side-flame-right">
+          <path d="M150 172 C162 156 158 136 146 122 C148 136 140 144 142 156 C136 148 134 136 138 128 C128 142 130 164 144 174 Z" fill="url(#flameGrad)" />
+          <circle cx="156" cy="114" r="2.2" fill="#facc15" />
+          <circle cx="142" cy="104" r="1.8" fill="#fb923c" />
+        </g>
 
         <ellipse cx="85" cy="188" rx="56" ry="11" fill="url(#floorShadow)" />
 
@@ -2939,6 +3319,15 @@
           <path d="M88 51 Q96 40 104 51" stroke="#0f172a" stroke-width="2.6" stroke-linecap="round" fill="none" />
         </g>
 
+        <!-- Boss Attitude Sunglasses -->
+        <g class="mexa-sunglasses">
+          <rect x="60" y="41" width="23" height="14" rx="4" fill="#09090b" stroke="#facc15" stroke-width="1.6" />
+          <rect x="87" y="41" width="23" height="14" rx="4" fill="#09090b" stroke="#facc15" stroke-width="1.6" />
+          <line x1="83" y1="46" x2="87" y2="46" stroke="#facc15" stroke-width="2" />
+          <line x1="64" y1="44" x2="72" y2="52" stroke="rgba(255,255,255,0.45)" stroke-width="1.6" stroke-linecap="round" />
+          <line x1="91" y1="44" x2="99" y2="52" stroke="rgba(255,255,255,0.45)" stroke-width="1.6" stroke-linecap="round" />
+        </g>
+
         <circle cx="85" cy="63" r="6.5" fill="url(#doraNose)" stroke="#0f172a" stroke-width="1.8" />
         <circle cx="83" cy="61" r="2" fill="#ffffff" opacity="0.85" />
 
@@ -2951,13 +3340,30 @@
         <path d="M52 68 L71 72 M50 76 L70 77 M53 84 L71 82" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round" />
         <path d="M118 68 L99 72 M120 76 L100 77 M117 84 L99 82" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round" />
 
+        <!-- Cuban Cigar & Rising Smoke Plumes -->
+        <g transform="translate(96, 86) rotate(14)">
+          <rect x="0" y="0" width="32" height="7" rx="3" fill="url(#cigarBody)" stroke="#1c1917" stroke-width="1.4" />
+          <rect x="7" y="0" width="4" height="7" fill="#facc15" />
+          <rect x="29" y="0.5" width="5" height="6" rx="1.5" class="cigar-ember" />
+        </g>
+        <circle cx="132" cy="86" r="5" fill="rgba(226, 232, 240, 0.72)" class="smoke-puff-1" />
+        <circle cx="136" cy="80" r="6.5" fill="rgba(203, 213, 225, 0.65)" class="smoke-puff-2" />
+        <circle cx="129" cy="76" r="5.5" fill="rgba(241, 245, 249, 0.68)" class="smoke-puff-3" />
+
         <rect x="52" y="106" width="66" height="8" rx="4" fill="#dc2626" stroke="#0f172a" stroke-width="2" />
         <circle cx="85" cy="114" r="8.5" fill="url(#doraBell)" stroke="#0f172a" stroke-width="2" />
         <line x1="78" y1="112" x2="92" y2="112" stroke="#0f172a" stroke-width="1.6" />
         <circle cx="85" cy="116" r="2" fill="#0f172a" />
       </svg>
-      <span class="mexa-badge">AI CHAT</span>
+      <span class="mexa-badge">AI BOSS</span>
     </button>
+
+    <!-- Center-Stage Boss Controls -->
+    <div class="boss-stage-controls" id="boss-stage-controls">
+      <button type="button" class="boss-stage-btn song" id="boss-sing-btn">🎵 Sing Bhojpuri Hit</button>
+      <button type="button" class="boss-stage-btn champagne" id="boss-champagne-btn">🍾 Pop Champagne</button>
+      <button type="button" class="boss-stage-btn exit" id="boss-exit-btn">✕ Exit Stage</button>
+    </div>
   </div>
 
   <!-- MEXA Smart AI Chat Drawer -->
@@ -2968,25 +3374,40 @@
         <span>MEXA &bull; Gemini AI</span>
       </div>
       <div class="mexa-head-controls">
-        <button type="button" class="mexa-reset-btn" id="mexa-reset-btn" title="Start a fresh conversation">↺ New</button>
-        <button type="button" class="mexa-lang-toggle" id="mexa-lang-toggle" title="Cycle Auto / Hindi / Bengali">AUTO</button>
-        <button type="button" class="mexa-voice-toggle" id="mexa-voice-toggle" title="Toggle MEXA Doraemon Voice">🔊 Voice</button>
+        <button type="button" class="mexa-pill-sm zip" id="mexa-zip-btn" title="Download standalone Personal MEXA AI Assistant .ZIP kit">📦 ZIP Kit</button>
+        <button type="button" class="mexa-pill-sm" id="mexa-key-toggle" title="Set Gemini API Key">🔑 Key</button>
+        <button type="button" class="mexa-pill-sm" id="mexa-reset-btn" title="New Chat">↺ New</button>
+        <button type="button" class="mexa-lang-toggle" id="mexa-lang-toggle" title="Cycle Auto / Bhojpuri / Hindi / Bengali">AUTO</button>
+        <button type="button" class="mexa-voice-toggle" id="mexa-voice-toggle" title="Toggle MEXA Voice">🔊</button>
         <button type="button" class="mexa-close" id="mexa-close" aria-label="Close MEXA chat">&times;</button>
       </div>
     </div>
 
+    <div class="mexa-key-bar" id="mexa-key-bar">
+      <input type="password" id="mexa-api-key-input" placeholder="Paste Gemini API Key (AIza...)..." autocomplete="off" />
+      <button type="button" id="mexa-save-key-btn">Save</button>
+    </div>
+
+    <div class="mexa-song-bar" id="mexa-song-bar">
+      <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+        <div class="eq-bars" aria-hidden="true"><span></span><span></span><span></span></div>
+        <span id="mexa-song-title" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Playing Bhojpuri Hit...</span>
+      </div>
+      <button type="button" class="mexa-song-stop" id="mexa-song-stop">⏹ Stop</button>
+    </div>
+
     <div class="mexa-log" id="mexa-log">
       <div class="msg-bot">
-        Yaho! Hi! I'm <strong>MEXA</strong> — your smart AI buddy powered by Gemini &amp; live web search. Ask me anything in <strong>English, বাংলা or हिंदी</strong>!
+        प्रणाम! हम <strong>MEXA</strong> बानी! Ask me any question in <strong>भोजपुरी, हिंदी, বাংলা or English</strong> — or tap a Bhojpuri song chip below to hear the Dholak beat &amp; famous hook line!
       </div>
     </div>
 
     <div class="mexa-chips">
-      <button type="button" class="mexa-chip" data-q="Explain SQL injection vs parameterized queries with a short example">SQLi &amp; Defense 💻</button>
-      <button type="button" class="mexa-chip" data-q="নমস্কার MEXA! মামুন আহমেদ এবং তার বন্ধুদের সম্পর্কে বলো">মামুন ও বন্ধুরা 🇧🇩</button>
+      <button type="button" class="mexa-chip bhojpuri" data-q="Sing Lollipop Lagelu Bhojpuri song">🎵 Lollipop Lagelu</button>
+      <button type="button" class="mexa-chip bhojpuri" data-q="Sing Chhalakata Hamro Jawaniya Bhojpuri song">🎶 Chhalakata Jawaniya</button>
+      <button type="button" class="mexa-chip bhojpuri" data-q="भोजपुरी में बात करअ आ मामून के बारे में बतावअ">भोजपुरी में बतियाईं 🔥</button>
+      <button type="button" class="mexa-chip" data-q="Explain SQL injection vs parameterized queries with code">SQLi &amp; Defense 💻</button>
       <button type="button" class="mexa-chip" data-q="Use Anywhere Door to visit Academics">Anywhere Door 🚪</button>
-      <button type="button" class="mexa-chip" data-q="Use Time Cloth Cyber Mode">Time Cloth ⏱️</button>
-      <button type="button" class="mexa-chip" data-q="What are the latest AI and cybersecurity trends right now?">Live Web AI 🌐</button>
     </div>
 
     <form class="mexa-form" id="mexa-form">
@@ -2998,7 +3419,7 @@
           <line x1="8" y1="23" x2="16" y2="23"></line>
         </svg>
       </button>
-      <input type="text" id="mexa-input" placeholder="Ask MEXA anything (code, science, news, বাংলা, हिंदी)..." autocomplete="off" />
+      <input type="text" id="mexa-input" placeholder="भोजपुरी, हिंदी या English में कुछ भी पूछीं..." autocomplete="off" />
       <button type="submit" id="mexa-send-btn">Send</button>
     </form>
   </aside>
@@ -3032,7 +3453,7 @@
         else if (w <= 1024) deviceType = "tablet";
 
         let autoPerf = "high";
-        if (prefersReduced || cores <= 2 || mem <= 2 || (deviceType === "mobile" && cores <= 4)) {
+        if (prefersReduced || cores <= 2 || mem <= 2) {
           autoPerf = "eco";
         }
 
@@ -3041,22 +3462,12 @@
         rootEl.setAttribute("data-input", isTouch ? "touch" : "pointer");
         rootEl.setAttribute("data-perf", activePerf);
 
-        const labelMap = {
-          desktop: "DESKTOP",
-          tablet: "TABLET",
-          mobile: "MOBILE"
-        };
+        const labelMap = { desktop: "DESKTOP", tablet: "TABLET", mobile: "MOBILE" };
         const perfTag = activePerf === "eco" ? "LITE FX" : isTouch ? "TOUCH" : "60FPS";
 
-        if (adaptPillLabel) {
-          adaptPillLabel.textContent = `${labelMap[deviceType]} · ${perfTag}`;
-        }
-        if (loaderDeviceTag) {
-          loaderDeviceTag.textContent = `MEXA ADAPTIVE · ${labelMap[deviceType]} (${w}×${h})`;
-        }
-        if (mobDeviceSummary) {
-          mobDeviceSummary.textContent = `${labelMap[deviceType]} · ${isTouch ? "TOUCH" : "POINTER"} · ${activePerf.toUpperCase()}`;
-        }
+        if (adaptPillLabel) adaptPillLabel.textContent = `${labelMap[deviceType]} · ${perfTag}`;
+        if (loaderDeviceTag) loaderDeviceTag.textContent = `MEXA ADAPTIVE · ${labelMap[deviceType]} (${w}×${h})`;
+        if (mobDeviceSummary) mobDeviceSummary.textContent = `${labelMap[deviceType]} · ${isTouch ? "TOUCH" : "POINTER"} · ${activePerf.toUpperCase()}`;
 
         return { deviceType, isTouch, activePerf, prefersReduced };
       }
@@ -3086,23 +3497,17 @@
           e.stopPropagation();
           setMobileMenuOpen(!mobileNavDrawer.classList.contains("open"));
         });
-
         document.querySelectorAll(".mob-nav-link").forEach((link) => {
           link.addEventListener("click", () => setMobileMenuOpen(false));
         });
-
         document.addEventListener("click", (e) => {
-          if (
-            mobileNavDrawer.classList.contains("open") &&
-            !mobileNavDrawer.contains(e.target) &&
-            !navMenuBtn.contains(e.target)
-          ) {
+          if (mobileNavDrawer.classList.contains("open") && !mobileNavDrawer.contains(e.target) && !navMenuBtn.contains(e.target)) {
             setMobileMenuOpen(false);
           }
         });
       }
 
-      /* ================= 1. HERO 3D POPUP SPLITTER ================= */
+      /* ================= 1. HERO 3D POPUP SPLITTER & 60FPS CUBE INERTIA ================= */
       function buildHeroPopup(el) {
         if (!el) return;
         const nodes = Array.from(el.childNodes);
@@ -3156,8 +3561,7 @@
         });
       }
 
-      const h1El = document.getElementById("h1");
-      buildHeroPopup(h1El);
+      buildHeroPopup(document.getElementById("h1"));
 
       const mamunHighlight = document.getElementById("mamun-name");
       if (mamunHighlight) {
@@ -3173,54 +3577,54 @@
         });
       }
 
+      /* 60fps Hardware-Accelerated 3D Cube Engine (Never Stucks on Mobile or Desktop) */
       const cubeStage = document.getElementById("hero-cube-stage");
       const cubeAssembly = document.getElementById("cube-assembly");
-      if (cubeStage && cubeAssembly) {
-        let isDraggingCube = false;
-        let dragStartX = 0;
-        let dragStartY = 0;
-        let cubeRotX = -20;
-        let cubeRotY = 28;
+      const cubeState = {
+        rotX: -20,
+        rotY: 28,
+        velX: 0,
+        velY: 0.42,
+        dragging: false,
+        lastX: 0,
+        lastY: 0
+      };
 
+      if (cubeStage && cubeAssembly) {
         cubeStage.addEventListener("pointerdown", (e) => {
-          isDraggingCube = true;
-          dragStartX = e.clientX;
-          dragStartY = e.clientY;
-          cubeAssembly.style.animationPlayState = "paused";
+          cubeState.dragging = true;
+          cubeState.lastX = e.clientX;
+          cubeState.lastY = e.clientY;
+          cubeState.velX = 0;
+          cubeState.velY = 0;
           try { cubeStage.setPointerCapture(e.pointerId); } catch (err) {}
         });
 
         cubeStage.addEventListener("pointermove", (e) => {
-          if (isDraggingCube) {
-            const dx = e.clientX - dragStartX;
-            const dy = e.clientY - dragStartY;
-            dragStartX = e.clientX;
-            dragStartY = e.clientY;
-            cubeRotY += dx * 0.85;
-            cubeRotX = Math.max(-75, Math.min(75, cubeRotX - dy * 0.85));
-            cubeAssembly.style.transform = `rotateX(${cubeRotX.toFixed(1)}deg) rotateY(${cubeRotY.toFixed(1)}deg) scale(1.06)`;
-            return;
-          }
-          if (e.pointerType === "mouse" && deviceProfile.activePerf !== "eco") {
+          if (cubeState.dragging) {
+            const dx = e.clientX - cubeState.lastX;
+            const dy = e.clientY - cubeState.lastY;
+            cubeState.lastX = e.clientX;
+            cubeState.lastY = e.clientY;
+            cubeState.velY = dx * 0.45;
+            cubeState.velX = -dy * 0.45;
+            cubeState.rotY += dx * 0.75;
+            cubeState.rotX = Math.max(-75, Math.min(75, cubeState.rotX - dy * 0.75));
+          } else if (e.pointerType === "mouse" && deviceProfile.activePerf !== "eco") {
             const r = cubeStage.getBoundingClientRect();
             const nx = ((e.clientX - r.left) / r.width - 0.5) * 2;
             const ny = ((e.clientY - r.top) / r.height - 0.5) * 2;
-            cubeAssembly.style.animationPlayState = "paused";
-            cubeAssembly.style.transform = `rotateX(${(-ny * 50).toFixed(1)}deg) rotateY(${(nx * 50).toFixed(1)}deg) scale(1.08)`;
+            cubeState.velY = nx * 1.4;
+            cubeState.velX = -ny * 0.9;
           }
         });
 
         const releaseCube = () => {
-          isDraggingCube = false;
-          cubeAssembly.style.transform = "";
-          cubeAssembly.style.animationPlayState = "running";
+          cubeState.dragging = false;
         };
 
         cubeStage.addEventListener("pointerup", releaseCube);
         cubeStage.addEventListener("pointercancel", releaseCube);
-        cubeStage.addEventListener("mouseleave", () => {
-          if (!isDraggingCube) releaseCube();
-        });
       }
 
       /* ================= 2. SCROLL LETTER-REVEAL SPLITTER ================= */
@@ -3256,7 +3660,6 @@
             });
           }
         });
-
         return chars;
       }
 
@@ -3358,11 +3761,7 @@
           const b = KEYS[i + 1];
           if (q >= a.q && q <= b.q) {
             const t = (q - a.q) / (b.q - a.q);
-            return {
-              tip: lerp(a.tip, b.tip, t),
-              half: lerp(a.half, b.half, t),
-              soft: lerp(a.soft, b.soft, t)
-            };
+            return { tip: lerp(a.tip, b.tip, t), half: lerp(a.half, b.half, t), soft: lerp(a.soft, b.soft, t) };
           }
         }
         return { ...KEYS[0] };
@@ -3539,9 +3938,9 @@
 
       const bootLogs = [
         "[BOOT] INITIALIZING MAMUN AHAMED PORTFOLIO...",
-        "[ADAPT] CALIBRATING VIEWPORT & TOUCH MATRIX...",
+        "[ADAPT] CALIBRATING 60FPS CUBE & TOUCH MATRIX...",
         "[SEC] VERIFYING CRYPTOGRAPHIC MODULES...",
-        "[MEXA] SYNCHRONIZING GEMINI AI & VOICE ENGINE...",
+        "[MEXA] LIGHTING CIGAR & SYNCHRONIZING GEMINI AI...",
         "[READY] LAUNCHING SMOOTH WORKSPACE."
       ];
 
@@ -3557,7 +3956,7 @@
         updateScrollVisuals();
       }
 
-      const BOOT_DURATION_MS = deviceProfile.prefersReduced ? 350 : 2200;
+      const BOOT_DURATION_MS = deviceProfile.prefersReduced ? 350 : 2100;
       let bootStartTime = null;
       let lastLogIdx = -1;
       let smoothProgress = 0;
@@ -3573,12 +3972,9 @@
         const targetProgress = easeInOutQuart(rawT);
 
         smoothProgress += (targetProgress - smoothProgress) * 0.24;
-        if (rawT >= 1 && smoothProgress > 0.996) {
-          smoothProgress = 1;
-        }
+        if (rawT >= 1 && smoothProgress > 0.996) smoothProgress = 1;
 
         const pct = Math.min(100, Math.round(smoothProgress * 100));
-
         if (loaderCount) loaderCount.textContent = String(pct).padStart(3, "0");
         if (loaderBar) loaderBar.style.transform = `scaleX(${smoothProgress.toFixed(4)})`;
         if (loaderSpark && loaderBar) {
@@ -3630,6 +4026,18 @@
           fpsLastSample = now;
         }
 
+        // Update 60fps 3D Cube Inertia
+        if (cubeAssembly) {
+          if (!cubeState.dragging) {
+            cubeState.rotY += cubeState.velY * (dt * 60);
+            cubeState.rotX += cubeState.velX * (dt * 60);
+            cubeState.rotX = Math.max(-72, Math.min(72, cubeState.rotX));
+            cubeState.velY = lerp(cubeState.velY, 0.42, 0.04);
+            cubeState.velX = lerp(cubeState.velX, Math.sin(now * 0.0012) * 0.12, 0.05);
+          }
+          cubeAssembly.style.transform = `rotateX(${cubeState.rotX.toFixed(2)}deg) rotateY(${cubeState.rotY.toFixed(2)}deg)`;
+        }
+
         if (introStart !== null) {
           const elapsed = (now - introStart) / 1000;
           if (elapsed < 1.3) {
@@ -3650,7 +4058,7 @@
 
       requestAnimationFrame(tick);
 
-      /* ================= 6. MEXA SMART GEMINI AI ROBOT & VOICE ================= */
+      /* ================= 6. MEXA AI BOSS, BHOJPURI SONGS, CHAMPAGNE & ZIP KIT ================= */
       const mexaDock = document.getElementById("mexa-dock");
       const mexaBackdrop = document.getElementById("mexa-backdrop");
       const pupils = document.getElementById("mexa-pupils");
@@ -3669,43 +4077,84 @@
       const navAiChatBtn = document.getElementById("nav-ai-chat-btn");
       const mobAiChatLink = document.getElementById("mob-ai-chat-link");
 
+      const mexaBossBtn = document.getElementById("mexa-boss-btn");
+      const bossSingBtn = document.getElementById("boss-sing-btn");
+      const bossChampagneBtn = document.getElementById("boss-champagne-btn");
+      const bossExitBtn = document.getElementById("boss-exit-btn");
+      const champagneOverlay = document.getElementById("champagne-overlay");
+      const champagneCork = document.getElementById("champagne-cork");
+
+      const mexaSongBar = document.getElementById("mexa-song-bar");
+      const mexaSongTitle = document.getElementById("mexa-song-title");
+      const mexaSongStop = document.getElementById("mexa-song-stop");
+
+      const mexaKeyToggle = document.getElementById("mexa-key-toggle");
+      const mexaKeyBar = document.getElementById("mexa-key-bar");
+      const mexaApiKeyInput = document.getElementById("mexa-api-key-input");
+      const mexaSaveKeyBtn = document.getElementById("mexa-save-key-btn");
+      const mexaZipBtn = document.getElementById("mexa-zip-btn");
+      const sectionZipDlBtn = document.getElementById("section-zip-dl-btn");
+
       let voiceEnabled = true;
       let preferredLang = "auto";
       let greetedAloud = false;
       let audioCtx = null;
-      let currentAudioEl = null;
       let pocketSequenceTimers = [];
+      let bhojpuriBeatTimer = null;
+      let hadActiveConversation = false;
       const mexaChatHistory = [];
 
-      const MEXA_SYSTEM_PROMPT = `You are MEXA, a brilliant, warm, witty, and ultra-helpful 22nd-century blue robot AI assistant (inspired by Doraemon) living on Mamun Ahamed's portfolio website.
-Think and respond with the clarity, depth, and helpfulness of a top AI assistant:
-- Answer ANY question accurately—programming, debugging, code snippets, algorithms, cybersecurity, data science, math, science, writing, brainstorming, or current real-world facts via Google Search.
-- Use clean Markdown formatting: short paragraphs, bullet points when listing steps or options, bold highlights, and fenced code blocks (\`\`\`lang ... \`\`\`) whenever showing code.
-- Be concise enough to read effortlessly in a chat widget without fluff, yet thorough enough to actually solve the user's question.
-- Language matching: If the user writes in Bengali (বাংলা) or Banglish (or Bengali mode is active), reply in natural, clear Bengali script. If in Hindi or Hinglish (or Hindi mode is active), reply in clear Devanagari Hindi. Otherwise reply in clear, friendly English.
+      const STORAGE_KEY_API = "mexa_gemini_api_key_v1";
+      let userGeminiApiKey = "";
+      try {
+        userGeminiApiKey = localStorage.getItem(STORAGE_KEY_API) || "";
+        if (mexaApiKeyInput && userGeminiApiKey) mexaApiKeyInput.value = userGeminiApiKey;
+      } catch (err) {}
 
-Verified Portfolio & Personal Context (use when relevant):
+      if (mexaKeyToggle && mexaKeyBar) {
+        mexaKeyToggle.addEventListener("click", () => {
+          mexaKeyBar.classList.toggle("show");
+          if (mexaKeyBar.classList.contains("show") && mexaApiKeyInput) mexaApiKeyInput.focus();
+        });
+      }
+
+      if (mexaSaveKeyBtn && mexaApiKeyInput) {
+        mexaSaveKeyBtn.addEventListener("click", () => {
+          userGeminiApiKey = mexaApiKeyInput.value.trim();
+          try {
+            if (userGeminiApiKey) localStorage.setItem(STORAGE_KEY_API, userGeminiApiKey);
+            else localStorage.removeItem(STORAGE_KEY_API);
+          } catch (err) {}
+          if (mexaKeyBar) mexaKeyBar.classList.remove("show");
+          appendMsg(
+            userGeminiApiKey
+              ? "Gemini API Key saved! MEXA is now connected live to **gemini-3-flash-preview** with Google Search."
+              : "API Key cleared. Using built-in environment endpoint.",
+            "bot"
+          );
+          playBellChime();
+        });
+      }
+
+      const MEXA_SYSTEM_PROMPT = `You are MEXA, a brilliant, charismatic, cigar-smoking 22nd-century blue robot AI assistant living on Mamun Ahamed's portfolio website.
+- Answer ANY question accurately—programming, debugging, code snippets, cybersecurity, data science, math, science, writing, or live current events via Google Search.
+- Use clean Markdown formatting: short paragraphs, bullet points, bold highlights, and fenced code blocks (\`\`\`lang ... \`\`\`) whenever showing code.
+- Language matching:
+  * If the user writes in Bhojpuri (भोजपुरी) or Bhojpuri mode is active, reply naturally in authentic Bhojpuri (Devanagari script with warm Bhojpuri expressions like "प्रणाम", "का हाल बा", "एकदम गर्दा बाटे").
+  * If the user writes in Bengali (বাংলা) or Bengali mode is active, reply in natural Bengali script.
+  * If in Hindi or Hinglish (or Hindi mode is active), reply in Devanagari Hindi.
+  * Otherwise reply in clear, friendly English.
+
+Portfolio Context:
 - Owner: Mamun Ahamed, 1st-year BCA Data Science & Cybersecurity student at Inspiria Knowledge Campus, Himachal Vihar, Phase – II, Matigara, Siliguri, Dist. Darjeeling, West Bengal 734010.
-- Campus Map: https://www.google.com/maps/place//data=!4m2!3m1!19sChIJYYDiT9pG5DkRAvMcoZoJkb4
-- GitHub: https://github.com/Mamun0730
-- LinkedIn: https://www.linkedin.com/in/mamun-ahamed-286b61438
-- Featured College C Lab Project: Complex Number Addition & Multiplication using C Structures (struct complex) compiled with GCC on Ubuntu Linux.
-- Mamun's Close Friends: Bishnu Singha (Kharampur), Sk Nowaj Ali (Chhatrak, studying Biotechnology at Swami Vivekananda University, Barrackpore — playfully nicknamed lover boy & pig boy by friends), Sk Alaul (Chhatrak), Minaj Ali (Tulshiohata), and Indranil Saha (Konua).`;
-
-      function isBengaliText(text) {
-        return /[\u0980-\u09FF]/.test(text) || /\b(nomoskar|namaskar|kemon|acho|achen|ki|korcho|amar|tomar|apnar|bangla|bolo|bojhau|dhonnobad|bhalo|kothay)\b/i.test(text);
-      }
-
-      function isHindiText(text) {
-        return /[\u0900-\u097F]/.test(text) || /\b(namaste|kaise|kya|hai|hain|mera|tum|aap|batao|samjhao|hindi|kyun|kab|kahan|kaun|accha|theek|shukriya|dhanyawad)\b/i.test(text);
-      }
+- GitHub: https://github.com/Mamun0730 | LinkedIn: https://www.linkedin.com/in/mamun-ahamed-286b61438
+- Close Friends: Bishnu Singha (Kharampur), Sk Nowaj Ali (Chhatrak, Biotechnology at Swami Vivekananda University, Barrackpore), Sk Alaul (Chhatrak), Minaj Ali (Tulshiohata), and Indranil Saha (Konua).`;
 
       function detectLang(text) {
-        if (/[\u0980-\u09FF]/.test(text)) return "bn";
-        if (/[\u0900-\u097F]/.test(text)) return "hi";
-        if (preferredLang === "bn" || preferredLang === "hi") return preferredLang;
-        if (isBengaliText(text)) return "bn";
-        if (isHindiText(text)) return "hi";
+        if (preferredLang === "bh" || preferredLang === "hi" || preferredLang === "bn") return preferredLang;
+        if (/[\u0980-\u09FF]/.test(text) || /\b(nomoskar|kemon|acho|bangla|bolo|dhonnobad)\b/i.test(text)) return "bn";
+        if (/\b(bhojpuri|ka hal ba|hamar|tohar|bate|bani|raura|batiya|gana|lollipop|chhalakata)\b/i.test(text)) return "bh";
+        if (/[\u0900-\u097F]/.test(text) || /\b(namaste|kaise|kya|hai|mera|batao|hindi)\b/i.test(text)) return "hi";
         return "en";
       }
 
@@ -3733,26 +4182,20 @@ Verified Portfolio & Personal Context (use when relevant):
         function appendFormattedText(segment) {
           const lines = segment.split("\n");
           lines.forEach((line, idx) => {
-            if (idx > 0) {
-              container.appendChild(document.createElement("br"));
-            }
+            if (idx > 0) container.appendChild(document.createElement("br"));
             const bulletMatch = line.match(/^\s*[-*•]\s+(.*)$/);
+            const span = document.createElement("span");
             if (bulletMatch) {
-              const span = document.createElement("span");
               span.innerHTML = "&bull; " + formatInlineMarkdown(escapeHtml(bulletMatch[1]));
-              container.appendChild(span);
             } else {
-              const span = document.createElement("span");
               span.innerHTML = formatInlineMarkdown(escapeHtml(line));
-              container.appendChild(span);
             }
+            container.appendChild(span);
           });
         }
 
         while ((match = codeBlockRegex.exec(rawMarkdown)) !== null) {
-          if (match.index > lastIndex) {
-            appendFormattedText(rawMarkdown.slice(lastIndex, match.index));
-          }
+          if (match.index > lastIndex) appendFormattedText(rawMarkdown.slice(lastIndex, match.index));
           const langLabel = (match[1] || "code").trim();
           const codeText = match[2].replace(/\n+$/, "");
 
@@ -3769,9 +4212,12 @@ Verified Portfolio & Personal Context (use when relevant):
           copyBtn.className = "mexa-code-copy";
           copyBtn.textContent = "Copy";
           copyBtn.addEventListener("click", () => {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              navigator.clipboard.writeText(codeText).catch(() => {});
-            }
+            const ta = document.createElement("textarea");
+            ta.value = codeText;
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand("copy"); } catch (err) {}
+            document.body.removeChild(ta);
             copyBtn.textContent = "Copied!";
             setTimeout(() => { copyBtn.textContent = "Copy"; }, 1300);
           });
@@ -3789,14 +4235,40 @@ Verified Portfolio & Personal Context (use when relevant):
           lastIndex = codeBlockRegex.lastIndex;
         }
 
-        if (lastIndex < rawMarkdown.length) {
-          appendFormattedText(rawMarkdown.slice(lastIndex));
-        }
+        if (lastIndex < rawMarkdown.length) appendFormattedText(rawMarkdown.slice(lastIndex));
       }
 
+      /* Audio & Voice Synthesis Engine */
       let speechSeqId = 0;
       let activeUtterance = null;
       let speechKeepAlive = null;
+
+      function getSharedAudioContext() {
+        try {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContextClass) return null;
+          if (!audioCtx) audioCtx = new AudioContextClass();
+          if (audioCtx.state === "suspended") audioCtx.resume().catch(() => {});
+          return audioCtx;
+        } catch (err) {
+          return null;
+        }
+      }
+
+      function stopBhojpuriSong() {
+        if (bhojpuriBeatTimer) {
+          clearInterval(bhojpuriBeatTimer);
+          bhojpuriBeatTimer = null;
+        }
+        if (mexaSongBar) mexaSongBar.classList.remove("active");
+      }
+
+      if (mexaSongStop) {
+        mexaSongStop.addEventListener("click", () => {
+          stopBhojpuriSong();
+          stopAllMexaSpeech();
+        });
+      }
 
       function stopAllMexaSpeech() {
         speechSeqId++;
@@ -3804,150 +4276,10 @@ Verified Portfolio & Personal Context (use when relevant):
           clearInterval(speechKeepAlive);
           speechKeepAlive = null;
         }
-        if (currentAudioEl) {
-          try {
-            currentAudioEl.pause();
-            currentAudioEl.src = "";
-          } catch (err) {}
-          currentAudioEl = null;
-        }
         if ("speechSynthesis" in window) {
-          try {
-            window.speechSynthesis.cancel();
-          } catch (err) {}
+          try { window.speechSynthesis.cancel(); } catch (err) {}
         }
         if (mexaDock) mexaDock.classList.remove("speaking");
-      }
-
-      function base64ToArrayBuffer(base64) {
-        const binaryString = window.atob(base64);
-        const len = binaryString.length;
-        const bytes = new Uint8Array(len);
-        for (let i = 0; i < len; i++) {
-          bytes[i] = binaryString.charCodeAt(i);
-        }
-        return bytes.buffer;
-      }
-
-      function pcmToWav(pcm16, sampleRate) {
-        const numChannels = 1;
-        const byteRate = sampleRate * numChannels * 2;
-        const blockAlign = numChannels * 2;
-        const dataSize = pcm16.byteLength;
-        const buffer = new ArrayBuffer(44 + dataSize);
-        const view = new DataView(buffer);
-
-        const writeStr = (offset, str) => {
-          for (let i = 0; i < str.length; i++) {
-            view.setUint8(offset + i, str.charCodeAt(i));
-          }
-        };
-
-        writeStr(0, "RIFF");
-        view.setUint32(4, 36 + dataSize, true);
-        writeStr(8, "WAVE");
-        writeStr(12, "fmt ");
-        view.setUint32(16, 16, true);
-        view.setUint16(20, 1, true);
-        view.setUint16(22, numChannels, true);
-        view.setUint32(24, sampleRate, true);
-        view.setUint32(28, byteRate, true);
-        view.setUint16(32, blockAlign, true);
-        view.setUint16(34, 16, true);
-        writeStr(36, "data");
-        view.setUint32(40, dataSize, true);
-
-        const wavBytes = new Uint8Array(buffer);
-        wavBytes.set(new Uint8Array(pcm16.buffer), 44);
-        return new Blob([wavBytes], { type: "audio/wav" });
-      }
-
-      async function speakWithGeminiTTS(cleanText, langCode, seq) {
-        const apiKey = "";
-        if (!apiKey) return false;
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
-        let stylePrompt = `Speak in a sweet, cheerful, upbeat cartoon robot voice: ${cleanText}`;
-        if (langCode === "bn") {
-          stylePrompt = `Speak in a sweet, cheerful, energetic cartoon robot voice in crystal-clear natural Bengali pronunciation: ${cleanText}`;
-        } else if (langCode === "hi") {
-          stylePrompt = `Speak in a sweet, cheerful, energetic cartoon robot voice in crystal-clear natural Hindi pronunciation: ${cleanText}`;
-        }
-
-        const payload = {
-          contents: [{ parts: [{ text: stylePrompt }] }],
-          generationConfig: {
-            responseModalities: ["AUDIO"],
-            speechConfig: {
-              voiceConfig: {
-                prebuiltVoiceConfig: { voiceName: "Puck" }
-              }
-            }
-          },
-          model: "gemini-2.5-flash-preview-tts"
-        };
-
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3200);
-
-        const response = await fetch(apiUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-
-        if (!response.ok || seq !== speechSeqId || !voiceEnabled) return false;
-
-        const result = await response.json();
-        const part = result?.candidates?.[0]?.content?.parts?.[0];
-        const audioData = part?.inlineData?.data;
-        const mimeType = part?.inlineData?.mimeType || "";
-
-        if (!audioData || !mimeType.startsWith("audio/")) return false;
-
-        const rateMatch = mimeType.match(/rate=(\d+)/);
-        const sampleRate = rateMatch ? parseInt(rateMatch[1], 10) : 24000;
-        const pcmBuffer = base64ToArrayBuffer(audioData);
-        const pcm16 = new Int16Array(pcmBuffer);
-        const wavBlob = pcmToWav(pcm16, sampleRate);
-        const audioUrl = URL.createObjectURL(wavBlob);
-
-        if (seq !== speechSeqId || !voiceEnabled) {
-          URL.revokeObjectURL(audioUrl);
-          return false;
-        }
-
-        const audio = new Audio(audioUrl);
-        currentAudioEl = audio;
-        audio.onplay = () => { if (mexaDock) mexaDock.classList.add("speaking"); };
-        audio.onended = () => {
-          if (mexaDock) mexaDock.classList.remove("speaking");
-          URL.revokeObjectURL(audioUrl);
-          if (currentAudioEl === audio) currentAudioEl = null;
-        };
-        audio.onerror = () => {
-          if (mexaDock) mexaDock.classList.remove("speaking");
-          URL.revokeObjectURL(audioUrl);
-          if (currentAudioEl === audio) currentAudioEl = null;
-        };
-
-        await audio.play();
-        return true;
-      }
-
-      function getSharedAudioContext() {
-        try {
-          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-          if (!AudioContextClass) return null;
-          if (!audioCtx) audioCtx = new AudioContextClass();
-          if (audioCtx.state === "suspended") {
-            audioCtx.resume().catch(() => {});
-          }
-          return audioCtx;
-        } catch (err) {
-          return null;
-        }
       }
 
       function playBellChime() {
@@ -3972,136 +4304,74 @@ Verified Portfolio & Personal Context (use when relevant):
         } catch (err) {}
       }
 
-      function pickDoraemonVoice(langCode = "en") {
+      function playChampagnePopSound() {
+        const ctxAudio = getSharedAudioContext();
+        if (!ctxAudio) return;
+        try {
+          const now = ctxAudio.currentTime;
+          const osc = ctxAudio.createOscillator();
+          const gain = ctxAudio.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(160, now);
+          osc.frequency.exponentialRampToValueAtTime(720, now + 0.07);
+          osc.frequency.exponentialRampToValueAtTime(95, now + 0.16);
+          gain.gain.setValueAtTime(0.28, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+          osc.connect(gain);
+          gain.connect(ctxAudio.destination);
+          osc.start(now);
+          osc.stop(now + 0.19);
+        } catch (err) {}
+      }
+
+      function triggerChampagneSplash() {
+        playChampagnePopSound();
+        if (champagneCork) {
+          champagneCork.classList.remove("flying");
+          void champagneCork.offsetWidth;
+          champagneCork.classList.add("flying");
+        }
+        if (!champagneOverlay) return;
+        champagneOverlay.innerHTML = "";
+        const dropCount = deviceProfile.deviceType === "mobile" ? 18 : 32;
+        for (let i = 0; i < dropCount; i++) {
+          const drop = document.createElement("div");
+          drop.className = "champagne-drop";
+          const size = 14 + Math.random() * 44;
+          drop.style.width = `${size.toFixed(0)}px`;
+          drop.style.height = `${(size * (0.9 + Math.random() * 0.35)).toFixed(0)}px`;
+          drop.style.left = `${(4 + Math.random() * 90).toFixed(1)}vw`;
+          drop.style.top = `${(4 + Math.random() * 88).toFixed(1)}vh`;
+          drop.style.animationDelay = `${(Math.random() * 0.32).toFixed(2)}s`;
+          champagneOverlay.appendChild(drop);
+        }
+        setTimeout(() => {
+          if (champagneOverlay) champagneOverlay.innerHTML = "";
+        }, 3800);
+      }
+
+      function pickVoice(langCode) {
         if (!("speechSynthesis" in window)) return null;
         const voices = window.speechSynthesis.getVoices();
         if (!voices.length) return null;
         if (langCode === "bn") {
-          return (
-            voices.find((v) => /bn-in|bn-bd/i.test(v.lang) && /google|microsoft|tanishaa|bashkar|nabanita|pradeep|female|natural/i.test(v.name)) ||
-            voices.find((v) => /bn-in|bn-bd/i.test(v.lang)) ||
-            voices.find((v) => /bn|bengali|bangla/i.test(v.lang + " " + v.name)) ||
-            voices.find((v) => /hi-in|en-in/i.test(v.lang)) ||
-            voices[0]
-          );
+          return voices.find((v) => /bn-in|bn-bd/i.test(v.lang)) || voices.find((v) => /hi-in|en-in/i.test(v.lang)) || voices[0];
         }
-        if (langCode === "hi") {
-          return (
-            voices.find((v) => /hi-in/i.test(v.lang) && /google|microsoft|swara|madhur|lekha|kalpana|female|natural/i.test(v.name)) ||
-            voices.find((v) => /hi-in/i.test(v.lang)) ||
-            voices.find((v) => /hi/i.test(v.lang)) ||
-            voices.find((v) => /en-in/i.test(v.lang)) ||
-            voices[0]
-          );
+        if (langCode === "hi" || langCode === "bh") {
+          return voices.find((v) => /hi-in/i.test(v.lang)) || voices.find((v) => /en-in/i.test(v.lang)) || voices[0];
         }
-        return (
-          voices.find((v) => /google uk english female|google us english|microsoft aria|microsoft jenny|samantha|zira|victoria|karen|tessa|hazel|natural/i.test(v.name) && /en/i.test(v.lang)) ||
-          voices.find((v) => /en-in|en-gb|en-us/i.test(v.lang)) ||
-          voices.find((v) => /en/i.test(v.lang)) ||
-          voices[0]
-        );
+        return voices.find((v) => /en-in|en-gb|en-us/i.test(v.lang)) || voices[0];
       }
 
       if ("speechSynthesis" in window) {
         try {
           window.speechSynthesis.getVoices();
-          window.speechSynthesis.onvoiceschanged = () => {
-            window.speechSynthesis.getVoices();
-          };
+          window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
         } catch (err) {}
       }
 
-      function playCartoonBlip(baseFreq = 680) {
-        if (!voiceEnabled) return;
-        const ctxAudio = getSharedAudioContext();
-        if (!ctxAudio || ctxAudio.state !== "running") return;
-        try {
-          const now = ctxAudio.currentTime;
-          const osc = ctxAudio.createOscillator();
-          const gain = ctxAudio.createGain();
-          osc.type = "triangle";
-          osc.frequency.setValueAtTime(baseFreq, now);
-          osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.48, now + 0.08);
-          osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.15, now + 0.16);
-
-          gain.gain.setValueAtTime(0.001, now);
-          gain.gain.exponentialRampToValueAtTime(0.045, now + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.17);
-
-          osc.connect(gain);
-          gain.connect(ctxAudio.destination);
-          osc.start(now);
-          osc.stop(now + 0.18);
-        } catch (err) {}
-      }
-
-      function speakWithBrowserFallback(cleanText, langCode, seq) {
-        if (!("speechSynthesis" in window)) return;
-        try {
-          if (speechKeepAlive) {
-            clearInterval(speechKeepAlive);
-            speechKeepAlive = null;
-          }
-
-          const selectedVoice = pickDoraemonVoice(langCode);
-          const utter = new SpeechSynthesisUtterance(cleanText);
-          activeUtterance = utter;
-
-          if (selectedVoice) {
-            utter.voice = selectedVoice;
-            utter.lang = selectedVoice.lang || (langCode === "bn" ? "bn-IN" : langCode === "hi" ? "hi-IN" : "en-US");
-          } else {
-            utter.lang = langCode === "bn" ? "bn-IN" : langCode === "hi" ? "hi-IN" : "en-US";
-          }
-
-          const isQuestion = cleanText.endsWith("?");
-          const isIndic = langCode === "bn" || langCode === "hi";
-          utter.pitch = isIndic ? (isQuestion ? 1.16 : 1.1) : (isQuestion ? 1.32 : 1.24);
-          utter.rate = isIndic ? 0.96 : 1.02;
-          utter.volume = 1.0;
-
-          utter.onstart = () => {
-            if (seq === speechSeqId && mexaDock) mexaDock.classList.add("speaking");
-          };
-          utter.onend = () => {
-            if (speechKeepAlive) {
-              clearInterval(speechKeepAlive);
-              speechKeepAlive = null;
-            }
-            activeUtterance = null;
-            if (mexaDock) mexaDock.classList.remove("speaking");
-          };
-          utter.onerror = () => {
-            if (speechKeepAlive) {
-              clearInterval(speechKeepAlive);
-              speechKeepAlive = null;
-            }
-            activeUtterance = null;
-            if (mexaDock) mexaDock.classList.remove("speaking");
-          };
-
-          if (window.speechSynthesis.paused) {
-            window.speechSynthesis.resume();
-          }
-          window.speechSynthesis.speak(utter);
-
-          speechKeepAlive = setInterval(() => {
-            if (!window.speechSynthesis.speaking || seq !== speechSeqId) {
-              clearInterval(speechKeepAlive);
-              speechKeepAlive = null;
-              return;
-            }
-            if (window.speechSynthesis.paused) {
-              window.speechSynthesis.resume();
-            }
-          }, 2500);
-        } catch (err) {
-          if (mexaDock) mexaDock.classList.remove("speaking");
-        }
-      }
-
-      async function speakAsMexa(rawText) {
-        if (!voiceEnabled) return;
+      function speakAsMexa(rawText, options = {}) {
+        if (!voiceEnabled && !options.forceLoud) return;
         stopAllMexaSpeech();
         const seq = speechSeqId;
 
@@ -4112,19 +4382,154 @@ Verified Portfolio & Personal Context (use when relevant):
           .replace(/[*_`#]/g, "")
           .replace(/\s+/g, " ")
           .trim();
-        if (!cleanText) return;
+        if (!cleanText || !("speechSynthesis" in window)) return;
 
-        const langCode = detectLang(cleanText);
-        playCartoonBlip(740);
+        const langCode = options.lang || detectLang(cleanText);
+        const selectedVoice = pickVoice(langCode);
+        const utter = new SpeechSynthesisUtterance(cleanText);
+        activeUtterance = utter;
+
+        if (selectedVoice) {
+          utter.voice = selectedVoice;
+          utter.lang = selectedVoice.lang || (langCode === "bn" ? "bn-IN" : langCode === "hi" || langCode === "bh" ? "hi-IN" : "en-US");
+        } else {
+          utter.lang = langCode === "bn" ? "bn-IN" : langCode === "hi" || langCode === "bh" ? "hi-IN" : "en-US";
+        }
+
+        utter.pitch = options.loud ? 1.18 : (langCode === "en" ? 1.24 : 1.12);
+        utter.rate = options.singing ? 0.94 : (langCode === "en" ? 1.02 : 0.96);
+        utter.volume = 1.0;
+
+        utter.onstart = () => {
+          if (seq === speechSeqId && mexaDock) mexaDock.classList.add("speaking");
+        };
+        utter.onend = () => {
+          if (speechKeepAlive) { clearInterval(speechKeepAlive); speechKeepAlive = null; }
+          activeUtterance = null;
+          if (mexaDock) mexaDock.classList.remove("speaking");
+        };
+        utter.onerror = () => {
+          if (speechKeepAlive) { clearInterval(speechKeepAlive); speechKeepAlive = null; }
+          activeUtterance = null;
+          if (mexaDock) mexaDock.classList.remove("speaking");
+        };
 
         try {
-          const playedNeural = await speakWithGeminiTTS(cleanText, langCode, seq);
-          if (playedNeural) return;
+          if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+          window.speechSynthesis.speak(utter);
+          speechKeepAlive = setInterval(() => {
+            if (!window.speechSynthesis.speaking || seq !== speechSeqId) {
+              clearInterval(speechKeepAlive);
+              speechKeepAlive = null;
+              return;
+            }
+            if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+          }, 2200);
         } catch (err) {}
+      }
 
-        if (seq === speechSeqId && voiceEnabled) {
-          speakWithBrowserFallback(cleanText, langCode, seq);
+      /* In-App Bhojpuri Dholak + Harmonium Beat & Famous Hook Player */
+      const BHOJPURI_SONGS = {
+        lollipop: {
+          title: "Lollipop Lagelu — Pawan Singh (Hook Line)",
+          lyrics: "तू लगावेलू जब लिपिस्टिक, हिलेला आरा डिस्टिक, जिला टॉप लागेलू, कमरिया करे लपालप कि लॉलीपॉप लागेलू!",
+          notes: [330, 392, 440, 392, 330, 294, 330, 392, 494, 440, 392, 330]
+        },
+        chhalakata: {
+          title: "Chhalakata Hamro Jawaniya — Pawan Singh & Priyanka",
+          lyrics: "छलकता हमरो जवनिया ए राजा, जैसे कि बल्टी के पनिया हो राजा!",
+          notes: [294, 330, 392, 440, 494, 440, 392, 330, 294, 330, 392, 294]
+        },
+        raate: {
+          title: "Raate Diya Buta Ke — Pawan Singh & Indu Sonali",
+          lyrics: "राते दिया बुता के पिया का का कइलअ, चमकत रहे देहिया पसीना से नहइलअ!",
+          notes: [392, 440, 494, 523, 494, 440, 392, 330, 392, 440, 392, 330]
         }
+      };
+
+      function playActualBhojpuriSong(songKey) {
+        stopBhojpuriSong();
+        const track = BHOJPURI_SONGS[songKey] || BHOJPURI_SONGS.lollipop;
+        if (mexaSongTitle) mexaSongTitle.textContent = track.title;
+        if (mexaSongBar) mexaSongBar.classList.add("active");
+
+        const ctxAudio = getSharedAudioContext();
+        let step = 0;
+
+        if (ctxAudio) {
+          bhojpuriBeatTimer = setInterval(() => {
+            if (ctxAudio.state !== "running") return;
+            const now = ctxAudio.currentTime;
+            // Dholak bass/treble pulse
+            const drumOsc = ctxAudio.createOscillator();
+            const drumGain = ctxAudio.createGain();
+            const isBass = step % 2 === 0;
+            drumOsc.type = "triangle";
+            drumOsc.frequency.setValueAtTime(isBass ? 115 : 260, now);
+            drumOsc.frequency.exponentialRampToValueAtTime(isBass ? 48 : 130, now + 0.14);
+            drumGain.gain.setValueAtTime(0.14, now);
+            drumGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+            drumOsc.connect(drumGain);
+            drumGain.connect(ctxAudio.destination);
+            drumOsc.start(now);
+            drumOsc.stop(now + 0.16);
+
+            // Harmonium melody note
+            const noteFreq = track.notes[step % track.notes.length];
+            const harmOsc = ctxAudio.createOscillator();
+            const harmGain = ctxAudio.createGain();
+            harmOsc.type = "sawtooth";
+            harmOsc.frequency.setValueAtTime(noteFreq, now);
+            harmGain.gain.setValueAtTime(0.045, now);
+            harmGain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+            harmOsc.connect(harmGain);
+            harmGain.connect(ctxAudio.destination);
+            harmOsc.start(now);
+            harmOsc.stop(now + 0.25);
+
+            step++;
+          }, 260);
+        }
+
+        speakAsMexa(track.lyrics, { lang: "bh", singing: true, forceLoud: true });
+        setTimeout(() => {
+          stopBhojpuriSong();
+        }, 9500);
+
+        return `🎵 **${track.title}**\n\n> "${track.lyrics}"\n\n*(Playing live Dholak & Harmonium beat with MEXA's vocals!)*`;
+      }
+
+      /* Boss Smoke Center-Stage Leap & Zoom-Out Interaction */
+      function toggleBossSmokeMode(forceActive) {
+        if (!mexaDock) return;
+        const next = typeof forceActive === "boolean" ? forceActive : !mexaDock.classList.contains("boss-center");
+        if (next) {
+          mexaDrawer.classList.remove("open");
+          mexaDock.classList.remove("expanded");
+          if (mexaSpeech) mexaSpeech.style.display = "none";
+          if (mexaBackdrop) mexaBackdrop.classList.add("active");
+          document.body.classList.add("boss-zoom-out");
+          mexaDock.classList.add("boss-center");
+          triggerChampagneSplash();
+          speakAsMexa("एकदम बॉस स्टाइल! सिगार आ शैंपेन के साथ MEXA मैदान में आ गइल बाटे!", { lang: "bh", loud: true });
+        } else {
+          mexaDock.classList.remove("boss-center");
+          document.body.classList.remove("boss-zoom-out");
+          if (mexaBackdrop) mexaBackdrop.classList.remove("active");
+          stopBhojpuriSong();
+          speakAsMexa("प्रीतम सर जिंदाबाद बाटे!", { lang: "bh", loud: true, forceLoud: true });
+        }
+      }
+
+      if (mexaBossBtn) mexaBossBtn.addEventListener("click", (e) => { e.stopPropagation(); toggleBossSmokeMode(true); });
+      if (bossExitBtn) bossExitBtn.addEventListener("click", () => toggleBossSmokeMode(false));
+      if (bossChampagneBtn) bossChampagneBtn.addEventListener("click", () => triggerChampagneSplash());
+      if (bossSingBtn) {
+        bossSingBtn.addEventListener("click", () => {
+          const keys = Object.keys(BHOJPURI_SONGS);
+          const pick = keys[Math.floor(Math.random() * keys.length)];
+          playActualBhojpuriSong(pick);
+        });
       }
 
       function unlockVoiceOnFirstGesture() {
@@ -4132,7 +4537,7 @@ Verified Portfolio & Personal Context (use when relevant):
         if (!greetedAloud) {
           greetedAloud = true;
           playBellChime();
-          speakAsMexa("Yaho! Hi! I'm Mexa! How was you going? Hehe!");
+          speakAsMexa("प्रणाम! हम MEXA बानी! कइसन बानी रउआ?", { lang: "bh" });
         }
         window.removeEventListener("pointerdown", unlockVoiceOnFirstGesture);
         window.removeEventListener("keydown", unlockVoiceOnFirstGesture);
@@ -4145,18 +4550,13 @@ Verified Portfolio & Personal Context (use when relevant):
         mexaVoiceToggle.addEventListener("click", () => {
           voiceEnabled = !voiceEnabled;
           mexaVoiceToggle.classList.toggle("muted", !voiceEnabled);
-          mexaVoiceToggle.textContent = voiceEnabled ? "🔊 Voice" : "🔇 Muted";
+          mexaVoiceToggle.textContent = voiceEnabled ? "🔊" : "🔇";
           if (!voiceEnabled) {
             stopAllMexaSpeech();
+            stopBhojpuriSong();
           } else {
             playBellChime();
-            speakAsMexa(
-              preferredLang === "bn"
-                ? "ইয়াহো! মেক্সার ভয়েস এখন চালু আছে!"
-                : preferredLang === "hi"
-                ? "याहो! मेक्सा की आवाज़ अब चालू है!"
-                : "Yaho! Mexa voice is ready! Hehe!"
-            );
+            speakAsMexa("MEXA के आवाज अब चालू हो गइल बा!", { lang: "bh" });
           }
         });
       }
@@ -4164,14 +4564,10 @@ Verified Portfolio & Personal Context (use when relevant):
       if (mexaResetBtn) {
         mexaResetBtn.addEventListener("click", () => {
           stopAllMexaSpeech();
+          stopBhojpuriSong();
           mexaChatHistory.length = 0;
-          if (mexaLog) {
-            mexaLog.innerHTML = "";
-          }
-          appendMsg(
-            "Fresh 4D pocket memory started! Ask me anything — coding, cybersecurity, math, live web questions, or Mamun's portfolio.",
-            "bot"
-          );
+          if (mexaLog) mexaLog.innerHTML = "";
+          appendMsg("नया चैट शुरू हो गइल बा! भोजपुरी, हिंदी, বাংলা या English में कुछ भी पूछीं।", "bot");
           playBellChime();
         });
       }
@@ -4180,13 +4576,13 @@ Verified Portfolio & Personal Context (use when relevant):
       let recognition = null;
       if (SpeechRec && mexaMicBtn) {
         recognition = new SpeechRec();
-        recognition.lang = "en-IN";
+        recognition.lang = "hi-IN";
         recognition.interimResults = false;
         recognition.maxAlternatives = 1;
 
         mexaMicBtn.addEventListener("click", () => {
           try {
-            recognition.lang = preferredLang === "bn" ? "bn-IN" : preferredLang === "hi" ? "hi-IN" : "en-IN";
+            recognition.lang = preferredLang === "bn" ? "bn-IN" : preferredLang === "en" ? "en-IN" : "hi-IN";
             mexaMicBtn.classList.add("listening");
             recognition.start();
           } catch (err) {
@@ -4199,7 +4595,6 @@ Verified Portfolio & Personal Context (use when relevant):
           const transcript = event.results?.[0]?.[0]?.transcript;
           if (transcript) handleUserMessage(transcript);
         };
-
         recognition.onerror = () => mexaMicBtn.classList.remove("listening");
         recognition.onend = () => mexaMicBtn.classList.remove("listening");
       } else if (mexaMicBtn) {
@@ -4208,28 +4603,28 @@ Verified Portfolio & Personal Context (use when relevant):
 
       if (mexaLangToggle) {
         mexaLangToggle.addEventListener("click", () => {
-          preferredLang = preferredLang === "auto" ? "bn" : preferredLang === "bn" ? "hi" : "auto";
-          mexaLangToggle.classList.remove("hi", "bn");
-          if (preferredLang === "bn") {
-            mexaLangToggle.classList.add("bn");
-            mexaLangToggle.textContent = "বাংলা ON";
-            if (mexaInput) mexaInput.placeholder = "বাংলায় যেকোনো প্রশ্ন করুন...";
-            if (recognition) recognition.lang = "bn-IN";
-            playBellChime();
-            speakAsMexa("নমস্কার! এখন আমি আপনার সাথে বাংলায় কথা বলবো!");
+          const order = ["auto", "bh", "hi", "bn"];
+          preferredLang = order[(order.indexOf(preferredLang) + 1) % order.length];
+          mexaLangToggle.classList.remove("bh", "hi", "bn");
+          if (preferredLang === "bh") {
+            mexaLangToggle.classList.add("bh");
+            mexaLangToggle.textContent = "भोजपुरी";
+            if (mexaInput) mexaInput.placeholder = "भोजपुरी में कुछ भी पूछीं...";
+            speakAsMexa("प्रणाम! अब हम रउआ से शुद्ध भोजपुरी में बतियाइब!", { lang: "bh" });
           } else if (preferredLang === "hi") {
             mexaLangToggle.classList.add("hi");
-            mexaLangToggle.textContent = "हिंदी ON";
+            mexaLangToggle.textContent = "हिंदी";
             if (mexaInput) mexaInput.placeholder = "हिंदी में कुछ भी पूछें...";
-            if (recognition) recognition.lang = "hi-IN";
-            playBellChime();
-            speakAsMexa("नमस्ते! अब मैं आपसे हिंदी में बात करूँगा!");
+            speakAsMexa("नमस्ते! अब मैं आपसे हिंदी में बात करूँगा!", { lang: "hi" });
+          } else if (preferredLang === "bn") {
+            mexaLangToggle.classList.add("bn");
+            mexaLangToggle.textContent = "বাংলা";
+            if (mexaInput) mexaInput.placeholder = "বাংলায় যেকোনো প্রশ্ন করুন...";
+            speakAsMexa("নমস্কার! এখন আমি বাংলায় কথা বলবো!", { lang: "bn" });
           } else {
             mexaLangToggle.textContent = "AUTO";
-            if (mexaInput) mexaInput.placeholder = "Ask MEXA anything (code, science, news, বাংলা, हिंदी)...";
-            if (recognition) recognition.lang = "en-IN";
-            playBellChime();
-            speakAsMexa("Auto language mode is on! Speak in English, Bengali, or Hindi!");
+            if (mexaInput) mexaInput.placeholder = "भोजपुरी, हिंदी या English में कुछ भी पूछीं...";
+            speakAsMexa("Auto language mode is active!", { lang: "en" });
           }
         });
       }
@@ -4249,9 +4644,7 @@ Verified Portfolio & Personal Context (use when relevant):
       );
 
       function clearPocketTimers() {
-        while (pocketSequenceTimers.length) {
-          clearTimeout(pocketSequenceTimers.pop());
-        }
+        while (pocketSequenceTimers.length) clearTimeout(pocketSequenceTimers.pop());
       }
 
       function toggleMexa(forceOpen) {
@@ -4261,41 +4654,39 @@ Verified Portfolio & Personal Context (use when relevant):
         clearPocketTimers();
 
         if (next) {
+          mexaDock.classList.remove("boss-center");
+          document.body.classList.remove("boss-zoom-out");
           if (mexaSpeech) mexaSpeech.style.display = "none";
           if (mexaBackdrop) mexaBackdrop.classList.add("active");
           mexaDock.classList.add("expanded");
           playBellChime();
 
-          const fastStep = deviceProfile.prefersReduced ? 20 : 280;
-          const openStep = deviceProfile.prefersReduced ? 40 : 680;
-
           pocketSequenceTimers.push(
             setTimeout(() => {
               mexaDock.classList.add("reaching");
-              playCartoonBlip(880);
-            }, fastStep)
+            }, deviceProfile.prefersReduced ? 20 : 250)
           );
 
           pocketSequenceTimers.push(
             setTimeout(() => {
               mexaDrawer.classList.add("open");
-              speakAsMexa(
-                preferredLang === "bn"
-                  ? "নমস্কার! আমি মেক্সা! আমার ফোর-ডি পকেট থেকে স্মার্ট চ্যাট খুলে গেছে!"
-                  : preferredLang === "hi"
-                  ? "नमस्ते! मैं मेक्सा हूँ! मेरी फोर-डी पॉकेट से स्मार्ट चैट खुल गई है!"
-                  : "Yaho! I'm Mexa! My 4D pocket AI is ready — ask me anything!"
-              );
+              speakAsMexa("प्रणाम! हम MEXA बानी — कुछ भी पूछीं या भोजपुरी गाना सुनीं!", { lang: "bh" });
               if (mexaInput && !deviceProfile.isTouch) mexaInput.focus();
-            }, openStep)
+            }, deviceProfile.prefersReduced ? 40 : 620)
           );
         } else {
           mexaDrawer.classList.remove("open");
           mexaDock.classList.remove("reaching");
+          stopBhojpuriSong();
           pocketSequenceTimers.push(
             setTimeout(() => {
               mexaDock.classList.remove("expanded");
               if (mexaBackdrop) mexaBackdrop.classList.remove("active");
+              // Loud Bhojpuri Finale Chant when chatting finishes!
+              if (hadActiveConversation) {
+                hadActiveConversation = false;
+                speakAsMexa("प्रीतम सर जिंदाबाद बाटे! प्रीतम सर जिंदाबाद बाटे!", { lang: "bh", loud: true, forceLoud: true });
+              }
             }, 220)
           );
         }
@@ -4304,7 +4695,12 @@ Verified Portfolio & Personal Context (use when relevant):
       if (mexaBtn) mexaBtn.addEventListener("click", () => toggleMexa());
       if (mexaSpeech) mexaSpeech.addEventListener("click", () => toggleMexa(true));
       if (mexaClose) mexaClose.addEventListener("click", () => toggleMexa(false));
-      if (mexaBackdrop) mexaBackdrop.addEventListener("click", () => toggleMexa(false));
+      if (mexaBackdrop) {
+        mexaBackdrop.addEventListener("click", () => {
+          if (mexaDock && mexaDock.classList.contains("boss-center")) toggleBossSmokeMode(false);
+          else toggleMexa(false);
+        });
+      }
       if (navAiChatBtn) navAiChatBtn.addEventListener("click", () => toggleMexa(true));
       if (mobAiChatLink) {
         mobAiChatLink.addEventListener("click", (e) => {
@@ -4313,39 +4709,28 @@ Verified Portfolio & Personal Context (use when relevant):
         });
       }
 
-      function appendMsg(text, who, linkUrl, linkLabel) {
+      function appendMsg(text, who) {
         if (!mexaLog) return null;
         const div = document.createElement("div");
         div.className = who === "user" ? "msg-user" : "msg-bot";
-        if (who === "bot") {
-          renderRichBotContent(div, text);
-        } else {
-          div.textContent = text;
-        }
-        if (linkUrl) {
-          const a = document.createElement("a");
-          a.href = linkUrl;
-          a.target = "_blank";
-          a.rel = "noopener noreferrer";
-          a.textContent = linkLabel || linkUrl;
-          a.style.display = "inline-block";
-          a.style.marginTop = "6px";
-          a.style.color = "#38bdf8";
-          a.style.fontWeight = "600";
-          a.style.textDecoration = "underline";
-          div.appendChild(document.createElement("br"));
-          div.appendChild(a);
-        }
+        if (who === "bot") renderRichBotContent(div, text);
+        else div.textContent = text;
         mexaLog.appendChild(div);
         mexaLog.scrollTop = mexaLog.scrollHeight;
         return div;
       }
 
-      // Local interactive portfolio gadgets (Anywhere Door & Time Cloth)
-      function getLocalGadgetAction(query) {
+      function getLocalGadgetOrSongAction(query) {
         const q = query.toLowerCase();
-        const lang = detectLang(query);
-
+        if (q.includes("lollipop")) return { text: playActualBhojpuriSong("lollipop"), skipVoice: true };
+        if (q.includes("chhalakata") || q.includes("jawaniya")) return { text: playActualBhojpuriSong("chhalakata"), skipVoice: true };
+        if (q.includes("raate") || q.includes("diya") || q.includes("bhojpuri song") || q.includes("गाना")) {
+          return { text: playActualBhojpuriSong("raate"), skipVoice: true };
+        }
+        if (q.includes("boss smoke") || q.includes("champagne")) {
+          toggleBossSmokeMode(true);
+          return { text: "🍾🔥 **Boss Smoke Mode** activated! MEXA leaped to center stage with cigar & champagne!", skipVoice: true };
+        }
         if (q.includes("anywhere door") || q.includes("teleport")) {
           const flash = document.getElementById("teleport-flash");
           if (flash) {
@@ -4357,83 +4742,45 @@ Verified Portfolio & Personal Context (use when relevant):
               setTimeout(() => flash.classList.remove("active"), 360);
             }, 220);
           }
-          return {
-            text:
-              lang === "bn"
-                ? "ডোকোডেমো ডোর (Anywhere Door)! চলুন সরাসরি মামুনের **Academics** এবং **C ল্যাব** সেকশনে যাই!"
-                : lang === "hi"
-                ? "एनीवेयर डोर (Anywhere Door)! चलिए सीधे मामून के **Academics** और **C लैब** सेक्शन में चलते हैं!"
-                : "**Anywhere Door** activated! Teleporting you straight to Mamun's **Academics** & **C Lab** showcase."
-          };
+          return { text: "**Anywhere Door** activated! Teleporting to Mamun's **Academics & C Lab**." };
         }
-
         if (q.includes("time cloth") || q.includes("cyber mode")) {
           const isCyber = document.body.classList.toggle("cyber-mode");
-          return {
-            text:
-              lang === "bn"
-                ? isCyber
-                  ? "**টাইম ক্লথ** অ্যাক্টিভেট হয়েছে! পোর্টফোলিও এখন **Dark Cyber Matrix** মোডে বদলে গেছে।"
-                  : "**টাইম ক্লথ** আবার ঘোরানো হয়েছে! পোর্টফোলিও এখন **Classic Studio** মোডে ফিরে এসেছে।"
-                : lang === "hi"
-                ? isCyber
-                  ? "**टाइम क्लॉथ** एक्टिवेट हो गया! पोर्टफोलियो अब **Dark Cyber Matrix** मोड में बदल गया है।"
-                  : "**टाइम क्लॉथ** फिर से घुमाया गया! पोर्टफोलियो अब **Classic Studio** मोड में आ गया है।"
-                : isCyber
-                ? "**Time Cloth** activated! Switched the portfolio into **Dark Cyber Matrix** mode."
-                : "**Time Cloth** reversed! Restored the portfolio to **Classic Studio** mode."
-          };
+          return { text: isCyber ? "**Time Cloth** activated! Switched to **Dark Cyber Matrix** mode." : "**Time Cloth** reversed! Restored **Classic Studio** mode." };
         }
-
         return null;
       }
 
       async function askMexaBrain(userText) {
-        const gadgetMatch = getLocalGadgetAction(userText);
-        if (gadgetMatch) return gadgetMatch;
+        const localHit = getLocalGadgetOrSongAction(userText);
+        if (localHit) return localHit;
 
         const lang = detectLang(userText);
         const langHint =
-          lang === "bn"
-            ? " [Respond clearly in natural Bengali script বাংলা.]"
+          lang === "bh"
+            ? " [Reply naturally in authentic Bhojpuri Devanagari script भोजपुरी.]"
+            : lang === "bn"
+            ? " [Reply clearly in natural Bengali script বাংলা.]"
             : lang === "hi"
-            ? " [Respond clearly in natural Devanagari Hindi हिंदी.]"
+            ? " [Reply clearly in natural Devanagari Hindi हिंदी.]"
             : "";
 
         mexaChatHistory.push({ role: "user", parts: [{ text: userText + langHint }] });
-        if (mexaChatHistory.length > 14) {
-          mexaChatHistory.splice(0, mexaChatHistory.length - 14);
-        }
+        if (mexaChatHistory.length > 14) mexaChatHistory.splice(0, mexaChatHistory.length - 14);
 
-        const apiKey = "";
-        if (!apiKey) {
-          return {
-            text:
-              lang === "bn"
-                ? "ইয়াহো! আমি এখন অনলাইনে আছি — কোডিং, সাইবার সিকিউরিটি, ডেটা সায়েন্স বা যেকোনো প্রশ্ন করুন!"
-                : lang === "hi"
-                ? "याहो! मैं अभी तैयार हूँ — कोडिंग, साइबर सिक्योरिटी, डेटा साइंस या कोई भी सवाल पूछिए!"
-                : "Yaho! My 4D pocket is online — ask me any coding, cybersecurity, science, or general question!"
-          };
-        }
-
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+        const apiKey = userGeminiApiKey || "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
         const payload = {
           contents: mexaChatHistory,
-          tools: [{ googleSearch: {} }],
-          generationConfig: {
-            maxOutputTokens: 420,
-            temperature: 0.65
-          },
-          systemInstruction: {
-            parts: [{ text: MEXA_SYSTEM_PROMPT }]
-          }
+          tools: [{ google_search: {} }],
+          generationConfig: { maxOutputTokens: 450, temperature: 0.65 },
+          systemInstruction: { parts: [{ text: MEXA_SYSTEM_PROMPT }] }
         };
 
         try {
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 8000);
+          const timeoutId = setTimeout(() => controller.abort(), 9000);
           const response = await fetch(apiUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -4442,13 +4789,10 @@ Verified Portfolio & Personal Context (use when relevant):
           });
           clearTimeout(timeoutId);
 
-          if (!response.ok) throw new Error("API error");
+          if (!response.ok) throw new Error("API status " + response.status);
           const data = await response.json();
           const parts = data?.candidates?.[0]?.content?.parts || [];
-          const replyText = parts
-            .map((p) => (typeof p.text === "string" ? p.text : ""))
-            .join("")
-            .trim();
+          const replyText = parts.map((p) => (typeof p.text === "string" ? p.text : "")).join("").trim();
           if (!replyText) throw new Error("Empty reply");
 
           mexaChatHistory.push({ role: "model", parts: [{ text: replyText }] });
@@ -4456,11 +4800,9 @@ Verified Portfolio & Personal Context (use when relevant):
         } catch (err) {
           return {
             text:
-              lang === "bn"
-                ? "দুঃখিত, নেটওয়ার্কে সাময়িক সমস্যা হচ্ছে। একটু পরে আবার চেষ্টা করুন!"
-                : lang === "hi"
-                ? "क्षमा करें, नेटवर्क में थोड़ी समस्या आ रही है। कृपया थोड़ी देर बाद फिर कोशिश करें!"
-                : "Sorry, my 4D pocket hit a brief network hiccup—please try asking again in a moment!"
+              lang === "bh"
+                ? "प्रणाम! लाइव जवाब खातिर ऊपर **🔑 Key** बटन दबा के आपन Gemini API Key डाल दीं, या फिर **📦 ZIP Kit** डाउनलोड कर के लाइव चलाईं!"
+                : "To connect live to Gemini anywhere, click **🔑 Key** above to paste your Google AI Studio API key, or download the standalone **📦 ZIP Kit**!"
           };
         }
       }
@@ -4471,23 +4813,17 @@ Verified Portfolio & Personal Context (use when relevant):
         const text = rawMsg.trim();
         if (!text || isMexaBusy) return;
         isMexaBusy = true;
+        hadActiveConversation = true;
         if (mexaSendBtn) mexaSendBtn.disabled = true;
 
         appendMsg(text, "user");
-
         const lang = detectLang(text);
-        const thinkingLabel =
-          lang === "bn"
-            ? "মেক্সা ভাবছে ও বিশ্লেষণ করছে..."
-            : lang === "hi"
-            ? "मेक्सा सोच रहा है..."
-            : "MEXA is thinking...";
-        const typingBubble = appendMsg(thinkingLabel, "bot");
+        const typingBubble = appendMsg(lang === "bh" ? "MEXA सोचत बा..." : "MEXA is thinking...", "bot");
 
         const res = await askMexaBrain(text);
         if (typingBubble) typingBubble.remove();
-        appendMsg(res.text, "bot", res.linkUrl, res.linkLabel);
-        speakAsMexa(res.text);
+        appendMsg(res.text, "bot");
+        if (!res.skipVoice) speakAsMexa(res.text);
 
         isMexaBusy = false;
         if (mexaSendBtn) mexaSendBtn.disabled = false;
@@ -4495,8 +4831,7 @@ Verified Portfolio & Personal Context (use when relevant):
 
       document.querySelectorAll(".mexa-chip").forEach((chip) => {
         chip.addEventListener("click", () => {
-          const q = chip.getAttribute("data-q") || chip.textContent;
-          handleUserMessage(q);
+          handleUserMessage(chip.getAttribute("data-q") || chip.textContent);
         });
       });
 
@@ -4510,7 +4845,243 @@ Verified Portfolio & Personal Context (use when relevant):
         });
       }
 
-      /* ================= 7. COLLEGE C PROJECT VIEWER & DOWNLOADER ================= */
+      /* ================= 7. STANDALONE ZERO-DEPENDENCY .ZIP GENERATOR ================= */
+      function buildCrc32Table() {
+        const table = new Uint32Array(256);
+        for (let i = 0; i < 256; i++) {
+          let c = i;
+          for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+          table[i] = c;
+        }
+        return table;
+      }
+
+      const CRC_TABLE = buildCrc32Table();
+      function crc32(bytes) {
+        let crc = 0xffffffff;
+        for (let i = 0; i < bytes.length; i++) crc = CRC_TABLE[(crc ^ bytes[i]) & 0xff] ^ (crc >>> 8);
+        return (crc ^ 0xffffffff) >>> 0;
+      }
+
+      function createZipBlob(filesMap) {
+        const encoder = new TextEncoder();
+        const localParts = [];
+        const centralParts = [];
+        let offset = 0;
+
+        Object.entries(filesMap).forEach(([filename, content]) => {
+          const nameBytes = encoder.encode(filename);
+          const dataBytes = encoder.encode(content);
+          const sum = crc32(dataBytes);
+
+          const localHeader = new Uint8Array(30 + nameBytes.length);
+          const lv = new DataView(localHeader.buffer);
+          lv.setUint32(0, 0x04034b50, true);
+          lv.setUint16(4, 20, true);
+          lv.setUint16(8, 0, true);
+          lv.setUint32(14, sum, true);
+          lv.setUint32(18, dataBytes.length, true);
+          lv.setUint32(22, dataBytes.length, true);
+          lv.setUint16(26, nameBytes.length, true);
+          localHeader.set(nameBytes, 30);
+
+          localParts.push(localHeader, dataBytes);
+
+          const centralHeader = new Uint8Array(46 + nameBytes.length);
+          const cv = new DataView(centralHeader.buffer);
+          cv.setUint32(0, 0x02014b50, true);
+          cv.setUint16(4, 20, true);
+          cv.setUint16(6, 20, true);
+          cv.setUint32(16, sum, true);
+          cv.setUint32(20, dataBytes.length, true);
+          cv.setUint32(24, dataBytes.length, true);
+          cv.setUint16(28, nameBytes.length, true);
+          cv.setUint32(42, offset, true);
+          centralHeader.set(nameBytes, 46);
+
+          centralParts.push(centralHeader);
+          offset += localHeader.length + dataBytes.length;
+        });
+
+        const centralSize = centralParts.reduce((acc, p) => acc + p.length, 0);
+        const eocd = new Uint8Array(22);
+        const ev = new DataView(eocd.buffer);
+        ev.setUint32(0, 0x06054b50, true);
+        ev.setUint16(8, centralParts.length, true);
+        ev.setUint16(10, centralParts.length, true);
+        ev.setUint32(12, centralSize, true);
+        ev.setUint32(16, offset, true);
+
+        return new Blob([...localParts, ...centralParts, eocd], { type: "application/zip" });
+      }
+
+      function downloadMexaAssistantZip() {
+        const readmeTxt = `# MEXA Personal AI Assistant (Powered by Gemini 3 Flash + Google Search)
+
+## Step-by-Step Live Setup
+1. Get a free Gemini API Key from Google AI Studio:
+   https://aistudio.google.com/apikey
+2. Option A — Instant Browser Run:
+   - Open \`index.html\` directly in Chrome, Edge, or Safari.
+   - Click "Set API Key", paste your Gemini API key, and ask MEXA any question in Bhojpuri, Hindi, Bengali, or English!
+3. Option B — Full-Stack Node.js Server (Keeps API Key Hidden on Server):
+   - Copy \`.env.example\` to \`.env\` and add \`GEMINI_API_KEY=your_key_here\`
+   - Run: \`node server.js\`
+   - Open \`http://localhost:3000\`
+`;
+
+        const envExample = `GEMINI_API_KEY=YOUR_GOOGLE_AI_STUDIO_API_KEY\nPORT=3000\n`;
+
+        const serverJs = `const http = require("http");
+const fs = require("fs");
+const path = require("path");
+
+const PORT = process.env.PORT || 3000;
+const API_KEY = process.env.GEMINI_API_KEY || "";
+
+const server = http.createServer(async (req, res) => {
+  if (req.method === "POST" && req.url === "/api/chat") {
+    let body = "";
+    req.on("data", chunk => (body += chunk));
+    req.on("end", async () => {
+      try {
+        const { contents, systemInstruction } = JSON.parse(body);
+        const response = await fetch(
+          \`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=\${API_KEY}\`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ contents, tools: [{ google_search: {} }], systemInstruction })
+          }
+        );
+        const data = await response.json();
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(data));
+      } catch (err) {
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    });
+    return;
+  }
+
+  const filePath = path.join(__dirname, req.url === "/" ? "index.html" : req.url);
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    fs.createReadStream(filePath).pipe(res);
+  } else {
+    res.writeHead(404);
+    res.end("Not Found");
+  }
+});
+
+server.listen(PORT, () => console.log(\`MEXA AI live at http://localhost:\${PORT}\`));
+`;
+
+        const standaloneHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MEXA — Personal Gemini AI Assistant</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; background: #09090b; color: #f4f4f5; display: flex; justify-content: center; min-height: 100vh; }
+    .app { width: min(760px, 100%); display: flex; flex-direction: column; border-left: 1px solid #27272a; border-right: 1px solid #27272a; }
+    header { padding: 16px 20px; background: #121216; border-bottom: 1px solid #27272a; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .log { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    .msg { padding: 12px 16px; border-radius: 16px; max-width: 84%; line-height: 1.5; white-space: pre-wrap; }
+    .bot { background: #18181b; border: 1px solid #27272a; align-self: flex-start; }
+    .user { background: #38bdf8; color: #09090b; font-weight: 600; align-self: flex-end; }
+    form { display: flex; gap: 8px; padding: 14px; background: #121216; border-top: 1px solid #27272a; }
+    input { flex: 1; background: #09090b; border: 1px solid #27272a; border-radius: 999px; padding: 11px 16px; color: #fff; font-size: 15px; outline: none; }
+    button { background: #38bdf8; color: #09090b; border: none; border-radius: 999px; padding: 10px 18px; font-weight: 700; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <strong>MEXA Personal AI Assistant</strong>
+      <button type="button" id="keyBtn">🔑 Set API Key</button>
+    </header>
+    <div class="log" id="log"><div class="msg bot">प्रणाम! हम MEXA बानी! Ask me anything in Bhojpuri, Hindi, Bengali, or English!</div></div>
+    <form id="form">
+      <input id="inp" placeholder="Ask MEXA anything..." autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <script>
+    let apiKey = localStorage.getItem("mexa_key") || "";
+    const history = [];
+    const log = document.getElementById("log");
+    document.getElementById("keyBtn").onclick = () => {
+      const k = prompt("Paste your Gemini API Key (AIza...):", apiKey);
+      if (k !== null) { apiKey = k.trim(); localStorage.setItem("mexa_key", apiKey); }
+    };
+    function add(text, cls) {
+      const d = document.createElement("div");
+      d.className = "msg " + cls;
+      d.textContent = text;
+      log.appendChild(d);
+      log.scrollTop = log.scrollHeight;
+      return d;
+    }
+    document.getElementById("form").onsubmit = async (e) => {
+      e.preventDefault();
+      const q = document.getElementById("inp").value.trim();
+      if (!q) return;
+      document.getElementById("inp").value = "";
+      add(q, "user");
+      history.push({ role: "user", parts: [{ text: q }] });
+      const wait = add("Thinking...", "bot");
+      try {
+        const endpoint = apiKey
+          ? \`https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=\${apiKey}\`
+          : "/api/chat";
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: history,
+            tools: [{ google_search: {} }],
+            systemInstruction: { parts: [{ text: "You are MEXA, a brilliant personal AI assistant fluent in Bhojpuri, Hindi, Bengali, and English." }] }
+          })
+        });
+        const data = await res.json();
+        const ans = data?.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("") || "Check your API key.";
+        wait.textContent = ans;
+        history.push({ role: "model", parts: [{ text: ans }] });
+      } catch (err) {
+        wait.textContent = "Error: " + err.message;
+      }
+    };
+  <\/script>
+</body>
+</html>`;
+
+        const zipBlob = createZipBlob({
+          "mexa-personal-ai/index.html": standaloneHtml,
+          "mexa-personal-ai/server.js": serverJs,
+          "mexa-personal-ai/.env.example": envExample,
+          "mexa-personal-ai/README.md": readmeTxt
+        });
+
+        const url = URL.createObjectURL(zipBlob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "mexa-personal-ai-assistant.zip";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+
+        appendMsg("📦 Downloaded **mexa-personal-ai-assistant.zip**! Extract it and open `index.html` or run `node server.js`.", "bot");
+        playBellChime();
+      }
+
+      if (mexaZipBtn) mexaZipBtn.addEventListener("click", downloadMexaAssistantZip);
+      if (sectionZipDlBtn) sectionZipDlBtn.addEventListener("click", downloadMexaAssistantZip);
+
+      /* ================= 8. COLLEGE C PROJECT VIEWER & DOWNLOADER ================= */
       const LAB_DATA = {
         add: {
           filename: "complex_addition.c",
@@ -4630,9 +5201,7 @@ int main() {
         a.click();
         document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(url), 1000);
-        if (labStatusText) {
-          labStatusText.textContent = `Downloaded ${item.filename}!`;
-        }
+        if (labStatusText) labStatusText.textContent = `Downloaded ${item.filename}!`;
       }
 
       renderLabTab("add");
@@ -4649,14 +5218,12 @@ int main() {
           labBackdrop.setAttribute("aria-hidden", "false");
         });
       }
-
       if (closeLabModalBtn && labBackdrop) {
         closeLabModalBtn.addEventListener("click", () => {
           labBackdrop.classList.remove("open");
           labBackdrop.setAttribute("aria-hidden", "true");
         });
       }
-
       if (labBackdrop) {
         labBackdrop.addEventListener("click", (e) => {
           if (e.target === labBackdrop) {
@@ -4665,21 +5232,11 @@ int main() {
           }
         });
       }
-
       document.querySelectorAll(".lab-tab").forEach((tab) => {
-        tab.addEventListener("click", () => {
-          renderLabTab(tab.getAttribute("data-tab"));
-        });
+        tab.addEventListener("click", () => renderLabTab(tab.getAttribute("data-tab")));
       });
-
-      if (dlLabDirectBtn) {
-        dlLabDirectBtn.addEventListener("click", () => downloadCFile("full"));
-      }
-
-      if (downloadLabCodeBtn) {
-        downloadLabCodeBtn.addEventListener("click", () => downloadCFile(activeTab));
-      }
-
+      if (dlLabDirectBtn) dlLabDirectBtn.addEventListener("click", () => downloadCFile("full"));
+      if (downloadLabCodeBtn) downloadLabCodeBtn.addEventListener("click", () => downloadCFile(activeTab));
       if (copyLabCodeBtn) {
         copyLabCodeBtn.addEventListener("click", () => {
           const ta = document.createElement("textarea");
@@ -4694,7 +5251,7 @@ int main() {
         });
       }
 
-      /* ================= 8. INTERACTIVE 3D TILT ON DOMAIN CELLS ================= */
+      /* ================= 9. INTERACTIVE 3D TILT ON DOMAIN CELLS ================= */
       document.querySelectorAll(".logo-cell").forEach((cell) => {
         cell.addEventListener("mousemove", (e) => {
           if (deviceProfile.isTouch || deviceProfile.activePerf === "eco") return;
