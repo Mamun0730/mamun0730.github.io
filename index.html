@@ -1550,7 +1550,7 @@
       backdrop-filter: blur(8px);
     }
 
-    /* ================= MEXA (3D BLUE DORAEMON ROBOT & AI CHAT) ================= */
+    /* ================= MEXA (3D BLUE DORAEMON ROBOT & SMART AI CHAT) ================= */
     .mexa-backdrop {
       position: fixed;
       inset: 0;
@@ -1604,10 +1604,10 @@
     body.ready .mexa-dock.expanded {
       animation: none !important;
       opacity: 1 !important;
-      right: calc(50vw + 40px);
+      right: calc(50vw + 46px);
       bottom: 50vh;
       align-items: center;
-      transform: translate3d(0, 50%, 0) rotate(0deg) scale(1.7);
+      transform: translate3d(0, 50%, 0) rotate(0deg) scale(1.68);
     }
 
     .mexa-left-arm {
@@ -1760,7 +1760,6 @@
       opacity: 1;
     }
 
-    /* Cyber Matrix Grid Toggle Mode (Time Cloth Gadget) */
     body.cyber-mode .atmo {
       filter: invert(1) contrast(1.08);
     }
@@ -1860,18 +1859,18 @@
       100% { transform: scaleX(1); }
     }
 
-    /* MEXA Chat Drawer */
+    /* MEXA Enhanced Chat Drawer */
     .mexa-drawer {
       position: fixed;
-      left: calc(50vw - 10px);
+      left: calc(50vw - 8px);
       top: 50%;
       z-index: 105;
-      width: min(390px, calc(100vw - 28px));
-      background: #0b0b0b;
+      width: min(440px, calc(100vw - 28px));
+      background: #0b0b0d;
       color: #ffffff;
-      border: 1.5px solid rgba(56, 189, 248, 0.42);
+      border: 1.5px solid rgba(56, 189, 248, 0.45);
       border-radius: 24px;
-      box-shadow: 0 30px 80px -12px rgba(0, 0, 0, 0.8), 0 0 36px rgba(56, 189, 248, 0.22);
+      box-shadow: 0 32px 84px -12px rgba(0, 0, 0, 0.85), 0 0 42px rgba(56, 189, 248, 0.22);
       overflow: hidden;
       opacity: 0;
       transform-origin: left center;
@@ -1893,17 +1892,26 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 13px 16px;
-      background: #141414;
+      gap: 6px;
+      padding: 12px 15px;
+      background: #141418;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .mexa-head-title {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 13px;
+      gap: 7px;
+      font-size: 12.5px;
       font-weight: 600;
+      min-width: 0;
+    }
+
+    .mexa-head-controls {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
     }
 
     .mexa-online-dot {
@@ -1912,6 +1920,24 @@
       border-radius: 50%;
       background: #38bdf8;
       box-shadow: 0 0 8px #38bdf8;
+      flex-shrink: 0;
+    }
+
+    .mexa-reset-btn {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #e4e4e7;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 10.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .mexa-reset-btn:hover {
+      background: #ffffff;
+      color: #080808;
     }
 
     .mexa-close {
@@ -1921,7 +1947,7 @@
       font-size: 20px;
       cursor: pointer;
       line-height: 1;
-      padding: 2px 6px;
+      padding: 2px 5px;
     }
 
     .mexa-voice-toggle {
@@ -1929,8 +1955,8 @@
       border: 1px solid rgba(56, 189, 248, 0.35);
       color: #7dd3fc;
       border-radius: 999px;
-      padding: 3px 9px;
-      font-size: 11px;
+      padding: 3px 8px;
+      font-size: 10.5px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -2011,30 +2037,30 @@
     }
 
     .mexa-log {
-      max-height: 210px;
+      max-height: 270px;
       overflow-y: auto;
       padding: 14px;
       display: flex;
       flex-direction: column;
       gap: 10px;
       font-size: 13px;
-      line-height: 1.45;
+      line-height: 1.5;
       overscroll-behavior: contain;
     }
 
     .msg-bot,
     .msg-user {
-      padding: 9px 12px;
-      border-radius: 14px;
-      max-width: 88%;
+      padding: 10px 13px;
+      border-radius: 15px;
+      max-width: 90%;
       word-break: break-word;
     }
 
     .msg-bot {
       align-self: flex-start;
-      background: #1a1a1a;
+      background: #17171b;
       color: #f4f4f5;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.09);
     }
 
     .msg-user {
@@ -2042,6 +2068,62 @@
       background: #ffffff;
       color: #080808;
       font-weight: 500;
+    }
+
+    .msg-bot code.inline-code {
+      background: rgba(255, 255, 255, 0.1);
+      color: #7dd3fc;
+      padding: 1px 5px;
+      border-radius: 5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11.5px;
+    }
+
+    .mexa-code-block {
+      margin: 8px 0 4px;
+      background: #070709;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 11px;
+      overflow: hidden;
+    }
+
+    .mexa-code-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 10px;
+      background: #121216;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 10.5px;
+      color: #a1a1aa;
+    }
+
+    .mexa-code-copy {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #ffffff;
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .mexa-code-copy:hover {
+      background: #38bdf8;
+      color: #080808;
+    }
+
+    .mexa-code-block pre {
+      margin: 0;
+      padding: 10px 12px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 11.5px;
+      line-height: 1.48;
+      color: #f4f4f5;
+      white-space: pre;
     }
 
     .mexa-chips {
@@ -2345,7 +2427,7 @@
       }
 
       .mexa-log {
-        max-height: 32vh;
+        max-height: 34vh;
       }
 
       .lab-modal {
@@ -2878,14 +2960,15 @@
     </button>
   </div>
 
-  <!-- MEXA Interactive Chat Drawer -->
+  <!-- MEXA Smart AI Chat Drawer -->
   <aside class="mexa-drawer" id="mexa-drawer" aria-label="MEXA Assistant Chat">
     <div class="mexa-head">
       <div class="mexa-head-title">
         <span class="mexa-online-dot"></span>
-        <span>MEXA &bull; AI (EN / हिं / বাং)</span>
+        <span>MEXA &bull; Gemini AI</span>
       </div>
-      <div style="display:flex;align-items:center;gap:5px;">
+      <div class="mexa-head-controls">
+        <button type="button" class="mexa-reset-btn" id="mexa-reset-btn" title="Start a fresh conversation">↺ New</button>
         <button type="button" class="mexa-lang-toggle" id="mexa-lang-toggle" title="Cycle Auto / Hindi / Bengali">AUTO</button>
         <button type="button" class="mexa-voice-toggle" id="mexa-voice-toggle" title="Toggle MEXA Doraemon Voice">🔊 Voice</button>
         <button type="button" class="mexa-close" id="mexa-close" aria-label="Close MEXA chat">&times;</button>
@@ -2894,16 +2977,16 @@
 
     <div class="mexa-log" id="mexa-log">
       <div class="msg-bot">
-        Yaho! Hi! I'm <strong>MEXA</strong> — how was u going? 👋 নমস্কার! আমি বাংলা, हिंदी এবং English-এ কথা বলতে পারি!
+        Yaho! Hi! I'm <strong>MEXA</strong> — your smart AI buddy powered by Gemini &amp; live web search. Ask me anything in <strong>English, বাংলা or हिंदी</strong>!
       </div>
     </div>
 
     <div class="mexa-chips">
-      <button type="button" class="mexa-chip" data-q="নমস্কার MEXA! মামুন আহমেদ সম্পর্কে বাংলায় বলো">মামুনের পরিচয় (বাংলা) 🇧🇩🇮🇳</button>
+      <button type="button" class="mexa-chip" data-q="Explain SQL injection vs parameterized queries with a short example">SQLi &amp; Defense 💻</button>
+      <button type="button" class="mexa-chip" data-q="নমস্কার MEXA! মামুন আহমেদ এবং তার বন্ধুদের সম্পর্কে বলো">মামুন ও বন্ধুরা 🇧🇩</button>
       <button type="button" class="mexa-chip" data-q="Use Anywhere Door to visit Academics">Anywhere Door 🚪</button>
       <button type="button" class="mexa-chip" data-q="Use Time Cloth Cyber Mode">Time Cloth ⏱️</button>
-      <button type="button" class="mexa-chip" data-q="Cybersecurity কী? সহজ বাংলায় বোঝাও">Cybersecurity কী? 🔐</button>
-      <button type="button" class="mexa-chip" data-q="Copy portfolio summary">Memory Bread 📋</button>
+      <button type="button" class="mexa-chip" data-q="What are the latest AI and cybersecurity trends right now?">Live Web AI 🌐</button>
     </div>
 
     <form class="mexa-form" id="mexa-form">
@@ -2915,7 +2998,7 @@
           <line x1="8" y1="23" x2="16" y2="23"></line>
         </svg>
       </button>
-      <input type="text" id="mexa-input" placeholder="Ask MEXA in English, বাংলা or हिंदी..." autocomplete="off" />
+      <input type="text" id="mexa-input" placeholder="Ask MEXA anything (code, science, news, বাংলা, हिंदी)..." autocomplete="off" />
       <button type="submit" id="mexa-send-btn">Send</button>
     </form>
   </aside>
@@ -2930,7 +3013,7 @@
       const mobDeviceSummary = document.getElementById("mob-device-summary");
       const mobFpsMeter = document.getElementById("mob-fps-meter");
 
-      let manualPerfMode = null; // null | "high" | "eco"
+      let manualPerfMode = null;
 
       function detectDeviceProfile() {
         const w = window.innerWidth || 1280;
@@ -2988,7 +3071,6 @@
         });
       }
 
-      // Mobile & Tablet Drawer Navigation
       const navMenuBtn = document.getElementById("nav-menu-btn");
       const mobileNavDrawer = document.getElementById("mobile-nav-drawer");
 
@@ -3077,7 +3159,6 @@
       const h1El = document.getElementById("h1");
       buildHeroPopup(h1El);
 
-      // Magnetic 3D cursor tilt on "Mamun," (Pointer devices only)
       const mamunHighlight = document.getElementById("mamun-name");
       if (mamunHighlight) {
         mamunHighlight.addEventListener("mousemove", (e) => {
@@ -3092,7 +3173,6 @@
         });
       }
 
-      // Interactive 3D Cube — Supports Both Mouse Hover & Touch Drag Rotation
       const cubeStage = document.getElementById("hero-cube-stage");
       const cubeAssembly = document.getElementById("cube-assembly");
       if (cubeStage && cubeAssembly) {
@@ -3143,7 +3223,7 @@
         });
       }
 
-      /* ================= 2. SCROLL LETTER-REVEAL SPLITTER (GPU-OPTIMIZED) ================= */
+      /* ================= 2. SCROLL LETTER-REVEAL SPLITTER ================= */
       function splitScrollChars(el) {
         if (!el) return [];
         const chars = [];
@@ -3374,7 +3454,7 @@
         ctx.putImageData(imgData, 0, 0);
       }
 
-      /* ================= 4. SCROLL CHOREOGRAPHY (rAF THROTTLED) ================= */
+      /* ================= 4. SCROLL CHOREOGRAPHY ================= */
       const navEl = document.getElementById("nav");
       const splitEl = document.getElementById("split");
       const row1 = document.getElementById("row1");
@@ -3450,7 +3530,7 @@
       window.addEventListener("resize", onResize, { passive: true });
       window.addEventListener("orientationchange", onResize, { passive: true });
 
-      /* ================= 5. GPU-SMOOTH PRELOADER & DELTA-TIME LOOP ================= */
+      /* ================= 5. GPU-SMOOTH PRELOADER ================= */
       const preloader = document.getElementById("preloader");
       const loaderCount = document.getElementById("loader-count");
       const loaderBar = document.getElementById("loader-bar");
@@ -3461,7 +3541,7 @@
         "[BOOT] INITIALIZING MAMUN AHAMED PORTFOLIO...",
         "[ADAPT] CALIBRATING VIEWPORT & TOUCH MATRIX...",
         "[SEC] VERIFYING CRYPTOGRAPHIC MODULES...",
-        "[MEXA] SYNCHRONIZING TRILINGUAL VOICE ENGINE...",
+        "[MEXA] SYNCHRONIZING GEMINI AI & VOICE ENGINE...",
         "[READY] LAUNCHING SMOOTH WORKSPACE."
       ];
 
@@ -3527,7 +3607,6 @@
 
       requestAnimationFrame(animatePreloader);
 
-      // Guaranteed fail-safe so preloader never blocks the page
       setTimeout(() => {
         if (!bootFinished) {
           if (preloader) preloader.classList.add("done");
@@ -3571,7 +3650,7 @@
 
       requestAnimationFrame(tick);
 
-      /* ================= 6. MEXA INTERACTIVE TALKING ROBOT & AI CHAT ================= */
+      /* ================= 6. MEXA SMART GEMINI AI ROBOT & VOICE ================= */
       const mexaDock = document.getElementById("mexa-dock");
       const mexaBackdrop = document.getElementById("mexa-backdrop");
       const pupils = document.getElementById("mexa-pupils");
@@ -3579,6 +3658,7 @@
       const mexaSpeech = document.getElementById("mexa-speech");
       const mexaDrawer = document.getElementById("mexa-drawer");
       const mexaClose = document.getElementById("mexa-close");
+      const mexaResetBtn = document.getElementById("mexa-reset-btn");
       const mexaLog = document.getElementById("mexa-log");
       const mexaForm = document.getElementById("mexa-form");
       const mexaInput = document.getElementById("mexa-input");
@@ -3597,24 +3677,20 @@
       let pocketSequenceTimers = [];
       const mexaChatHistory = [];
 
-      const MEXA_SYSTEM_PROMPT = `You are MEXA, a cheerful, sweet, witty, and ultra-fast 22nd-century blue robot AI assistant (inspired by Doraemon) living on Mamun Ahamed's portfolio website.
-You are a REAL trilingual general-purpose AI chatbot fluent in Bengali (বাংলা), Hindi (हिंदी), and English:
-- If the visitor writes or speaks in Bengali or Banglish (or if Bengali mode is active), reply naturally, warmly, and clearly in natural conversational Bengali using clean Bengali script.
-- If the visitor writes or speaks in Hindi or Hinglish (or if Hindi mode is active), reply naturally in clean Devanagari Hindi.
-- If the visitor writes in English, reply in friendly English.
-- Answer ANY question a visitor asks—coding, Python, C, cybersecurity, data science, science, math, general knowledge, jokes, or casual conversation—in 2 concise, clear sentences.
-Verified facts about Mamun Ahamed:
-- Name: Mamun Ahamed, 1st-year BCA Data Science & Cybersecurity student at Inspiria Knowledge Campus, Himachal Vihar, Phase – II, Matigara, Siliguri, Dist. Darjeeling, West Bengal 734010.
+      const MEXA_SYSTEM_PROMPT = `You are MEXA, a brilliant, warm, witty, and ultra-helpful 22nd-century blue robot AI assistant (inspired by Doraemon) living on Mamun Ahamed's portfolio website.
+Think and respond with the clarity, depth, and helpfulness of a top AI assistant:
+- Answer ANY question accurately—programming, debugging, code snippets, algorithms, cybersecurity, data science, math, science, writing, brainstorming, or current real-world facts via Google Search.
+- Use clean Markdown formatting: short paragraphs, bullet points when listing steps or options, bold highlights, and fenced code blocks (\`\`\`lang ... \`\`\`) whenever showing code.
+- Be concise enough to read effortlessly in a chat widget without fluff, yet thorough enough to actually solve the user's question.
+- Language matching: If the user writes in Bengali (বাংলা) or Banglish (or Bengali mode is active), reply in natural, clear Bengali script. If in Hindi or Hinglish (or Hindi mode is active), reply in clear Devanagari Hindi. Otherwise reply in clear, friendly English.
+
+Verified Portfolio & Personal Context (use when relevant):
+- Owner: Mamun Ahamed, 1st-year BCA Data Science & Cybersecurity student at Inspiria Knowledge Campus, Himachal Vihar, Phase – II, Matigara, Siliguri, Dist. Darjeeling, West Bengal 734010.
 - Campus Map: https://www.google.com/maps/place//data=!4m2!3m1!19sChIJYYDiT9pG5DkRAvMcoZoJkb4
 - GitHub: https://github.com/Mamun0730
 - LinkedIn: https://www.linkedin.com/in/mamun-ahamed-286b61438
-- Featured College Project: Complex Number Addition & Multiplication using C Structures (struct complex) compiled with GCC on Ubuntu Linux.
-- Mamun's Close Friends:
-  1. Bishnu Singha (from Kharampur)
-  2. Sk Nowaj Ali (from Chhatrak, studying Biotechnology at Swami Vivekananda University, Barrackpore — playfully nicknamed lover boy & pig boy by friends)
-  3. Sk Alaul (from Chhatrak)
-  4. Minaj Ali (from Tulshiohata)
-  5. Indranil Saha (from Konua)`;
+- Featured College C Lab Project: Complex Number Addition & Multiplication using C Structures (struct complex) compiled with GCC on Ubuntu Linux.
+- Mamun's Close Friends: Bishnu Singha (Kharampur), Sk Nowaj Ali (Chhatrak, studying Biotechnology at Swami Vivekananda University, Barrackpore — playfully nicknamed lover boy & pig boy by friends), Sk Alaul (Chhatrak), Minaj Ali (Tulshiohata), and Indranil Saha (Konua).`;
 
       function isBengaliText(text) {
         return /[\u0980-\u09FF]/.test(text) || /\b(nomoskar|namaskar|kemon|acho|achen|ki|korcho|amar|tomar|apnar|bangla|bolo|bojhau|dhonnobad|bhalo|kothay)\b/i.test(text);
@@ -3631,6 +3707,91 @@ Verified facts about Mamun Ahamed:
         if (isBengaliText(text)) return "bn";
         if (isHindiText(text)) return "hi";
         return "en";
+      }
+
+      function escapeHtml(str) {
+        return str
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function formatInlineMarkdown(escaped) {
+        return escaped
+          .replace(/`([^`\n]+)`/g, '<code class="inline-code">$1</code>')
+          .replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>")
+          .replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
+      }
+
+      function renderRichBotContent(container, rawMarkdown) {
+        container.innerHTML = "";
+        const codeBlockRegex = /```([a-zA-Z0-9_-]*)\n?([\s\S]*?)```/g;
+        let lastIndex = 0;
+        let match;
+
+        function appendFormattedText(segment) {
+          const lines = segment.split("\n");
+          lines.forEach((line, idx) => {
+            if (idx > 0) {
+              container.appendChild(document.createElement("br"));
+            }
+            const bulletMatch = line.match(/^\s*[-*•]\s+(.*)$/);
+            if (bulletMatch) {
+              const span = document.createElement("span");
+              span.innerHTML = "&bull; " + formatInlineMarkdown(escapeHtml(bulletMatch[1]));
+              container.appendChild(span);
+            } else {
+              const span = document.createElement("span");
+              span.innerHTML = formatInlineMarkdown(escapeHtml(line));
+              container.appendChild(span);
+            }
+          });
+        }
+
+        while ((match = codeBlockRegex.exec(rawMarkdown)) !== null) {
+          if (match.index > lastIndex) {
+            appendFormattedText(rawMarkdown.slice(lastIndex, match.index));
+          }
+          const langLabel = (match[1] || "code").trim();
+          const codeText = match[2].replace(/\n+$/, "");
+
+          const block = document.createElement("div");
+          block.className = "mexa-code-block";
+
+          const head = document.createElement("div");
+          head.className = "mexa-code-head";
+          const langSpan = document.createElement("span");
+          langSpan.textContent = langLabel;
+
+          const copyBtn = document.createElement("button");
+          copyBtn.type = "button";
+          copyBtn.className = "mexa-code-copy";
+          copyBtn.textContent = "Copy";
+          copyBtn.addEventListener("click", () => {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(codeText).catch(() => {});
+            }
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => { copyBtn.textContent = "Copy"; }, 1300);
+          });
+
+          head.appendChild(langSpan);
+          head.appendChild(copyBtn);
+
+          const pre = document.createElement("pre");
+          pre.textContent = codeText;
+
+          block.appendChild(head);
+          block.appendChild(pre);
+          container.appendChild(block);
+
+          lastIndex = codeBlockRegex.lastIndex;
+        }
+
+        if (lastIndex < rawMarkdown.length) {
+          appendFormattedText(rawMarkdown.slice(lastIndex));
+        }
       }
 
       let speechSeqId = 0;
@@ -3685,7 +3846,7 @@ Verified facts about Mamun Ahamed:
         writeStr(0, "RIFF");
         view.setUint32(4, 36 + dataSize, true);
         writeStr(8, "WAVE");
-        view.setUint32(12, "fmt ");
+        writeStr(12, "fmt ");
         view.setUint32(16, 16, true);
         view.setUint16(20, 1, true);
         view.setUint16(22, numChannels, true);
@@ -3945,6 +4106,7 @@ Verified facts about Mamun Ahamed:
         const seq = speechSeqId;
 
         const cleanText = rawText
+          .replace(/```[\s\S]*?```/g, " here is the code example ")
           .replace(/[\u{1F300}-\u{1FAFF}]/gu, "")
           .replace(/https?:\/\/\S+/g, "")
           .replace(/[*_`#]/g, "")
@@ -3999,7 +4161,21 @@ Verified facts about Mamun Ahamed:
         });
       }
 
-      // Speech-to-Text Mic input supporting English, Bengali (bn-IN), and Hindi (hi-IN)
+      if (mexaResetBtn) {
+        mexaResetBtn.addEventListener("click", () => {
+          stopAllMexaSpeech();
+          mexaChatHistory.length = 0;
+          if (mexaLog) {
+            mexaLog.innerHTML = "";
+          }
+          appendMsg(
+            "Fresh 4D pocket memory started! Ask me anything — coding, cybersecurity, math, live web questions, or Mamun's portfolio.",
+            "bot"
+          );
+          playBellChime();
+        });
+      }
+
       const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
       let recognition = null;
       if (SpeechRec && mexaMicBtn) {
@@ -4037,20 +4213,20 @@ Verified facts about Mamun Ahamed:
           if (preferredLang === "bn") {
             mexaLangToggle.classList.add("bn");
             mexaLangToggle.textContent = "বাংলা ON";
-            if (mexaInput) mexaInput.placeholder = "বাংলায় প্রশ্ন করুন...";
+            if (mexaInput) mexaInput.placeholder = "বাংলায় যেকোনো প্রশ্ন করুন...";
             if (recognition) recognition.lang = "bn-IN";
             playBellChime();
             speakAsMexa("নমস্কার! এখন আমি আপনার সাথে বাংলায় কথা বলবো!");
           } else if (preferredLang === "hi") {
             mexaLangToggle.classList.add("hi");
             mexaLangToggle.textContent = "हिंदी ON";
-            if (mexaInput) mexaInput.placeholder = "हिंदी में पूछें...";
+            if (mexaInput) mexaInput.placeholder = "हिंदी में कुछ भी पूछें...";
             if (recognition) recognition.lang = "hi-IN";
             playBellChime();
             speakAsMexa("नमस्ते! अब मैं आपसे हिंदी में बात करूँगा!");
           } else {
             mexaLangToggle.textContent = "AUTO";
-            if (mexaInput) mexaInput.placeholder = "Ask MEXA in English, বাংলা or हिंदी...";
+            if (mexaInput) mexaInput.placeholder = "Ask MEXA anything (code, science, news, বাংলা, हिंदी)...";
             if (recognition) recognition.lang = "en-IN";
             playBellChime();
             speakAsMexa("Auto language mode is on! Speak in English, Bengali, or Hindi!");
@@ -4058,7 +4234,6 @@ Verified facts about Mamun Ahamed:
         });
       }
 
-      // Pupil cursor tracking (Pointer devices only for battery efficiency on mobile)
       window.addEventListener(
         "mousemove",
         (e) => {
@@ -4106,10 +4281,10 @@ Verified facts about Mamun Ahamed:
               mexaDrawer.classList.add("open");
               speakAsMexa(
                 preferredLang === "bn"
-                  ? "নমস্কার! আমি মেক্সা! আমার ফোর-ডি পকেট থেকে চ্যাট খুলে গেছে, আপনি কেমন আছেন?"
+                  ? "নমস্কার! আমি মেক্সা! আমার ফোর-ডি পকেট থেকে স্মার্ট চ্যাট খুলে গেছে!"
                   : preferredLang === "hi"
-                  ? "नमस्ते! मैं मेक्सा हूँ! मेरी फोर-डी पॉकेट से चैट खुल गई है, आप कैसे हैं?"
-                  : "Yaho! I'm Mexa! Look what came out of my 4D pocket — how are you doing today?"
+                  ? "नमस्ते! मैं मेक्सा हूँ! मेरी फोर-डी पॉकेट से स्मार्ट चैट खुल गई है!"
+                  : "Yaho! I'm Mexa! My 4D pocket AI is ready — ask me anything!"
               );
               if (mexaInput && !deviceProfile.isTouch) mexaInput.focus();
             }, openStep)
@@ -4142,7 +4317,11 @@ Verified facts about Mamun Ahamed:
         if (!mexaLog) return null;
         const div = document.createElement("div");
         div.className = who === "user" ? "msg-user" : "msg-bot";
-        div.textContent = text;
+        if (who === "bot") {
+          renderRichBotContent(div, text);
+        } else {
+          div.textContent = text;
+        }
         if (linkUrl) {
           const a = document.createElement("a");
           a.href = linkUrl;
@@ -4162,11 +4341,12 @@ Verified facts about Mamun Ahamed:
         return div;
       }
 
-      function getFastPortfolioReply(query) {
+      // Local interactive portfolio gadgets (Anywhere Door & Time Cloth)
+      function getLocalGadgetAction(query) {
         const q = query.toLowerCase();
         const lang = detectLang(query);
 
-        if (q.includes("anywhere door") || q.includes("teleport") || q.includes("door")) {
+        if (q.includes("anywhere door") || q.includes("teleport")) {
           const flash = document.getElementById("teleport-flash");
           if (flash) {
             flash.classList.add("active");
@@ -4180,175 +4360,28 @@ Verified facts about Mamun Ahamed:
           return {
             text:
               lang === "bn"
-                ? "ডোকোডেমো ডোর (Anywhere Door)! চলুন সরাসরি মামুনের Academics এবং C ল্যাব প্রজেক্ট সেকশনে যাই!"
+                ? "ডোকোডেমো ডোর (Anywhere Door)! চলুন সরাসরি মামুনের **Academics** এবং **C ল্যাব** সেকশনে যাই!"
                 : lang === "hi"
-                ? "एनीवेयर डोर (Anywhere Door)! चलिए सीधे मामून के Academics और C लैब प्रोजेक्ट सेक्शन में चलते हैं!"
-                : "Anywhere Door activated! Teleporting you straight to Mamun's Academics & C Lab showcase!"
+                ? "एनीवेयर डोर (Anywhere Door)! चलिए सीधे मामून के **Academics** और **C लैब** सेक्शन में चलते हैं!"
+                : "**Anywhere Door** activated! Teleporting you straight to Mamun's **Academics** & **C Lab** showcase."
           };
         }
 
-        if (q.includes("time cloth") || q.includes("cyber mode") || q.includes("theme") || q.includes("dark mode")) {
+        if (q.includes("time cloth") || q.includes("cyber mode")) {
           const isCyber = document.body.classList.toggle("cyber-mode");
           return {
             text:
               lang === "bn"
                 ? isCyber
-                  ? "টাইম ক্লথ অ্যাক্টিভেট হয়েছে! পোর্টফোলিও এখন Dark Cyber Matrix মোডে বদলে গেছে!"
-                  : "টাইম ক্লথ আবার ঘোরানো হয়েছে! পোর্টফোলিও এখন Classic Studio মোডে ফিরে এসেছে!"
+                  ? "**টাইম ক্লথ** অ্যাক্টিভেট হয়েছে! পোর্টফোলিও এখন **Dark Cyber Matrix** মোডে বদলে গেছে।"
+                  : "**টাইম ক্লথ** আবার ঘোরানো হয়েছে! পোর্টফোলিও এখন **Classic Studio** মোডে ফিরে এসেছে।"
                 : lang === "hi"
                 ? isCyber
-                  ? "टाइम क्लॉथ एक्टिवेट हो गया! पोर्टफोलियो अब Dark Cyber Matrix मोड में बदल गया है!"
-                  : "टाइम क्लॉथ फिर से घुमाया गया! पोर्टफोलियो अब Classic Studio मोड में आ गया है!"
+                  ? "**टाइम क्लॉथ** एक्टिवेट हो गया! पोर्टफोलियो अब **Dark Cyber Matrix** मोड में बदल गया है।"
+                  : "**टाइम क्लॉथ** फिर से घुमाया गया! पोर्टफोलियो अब **Classic Studio** मोड में आ गया है।"
                 : isCyber
-                ? "Time Cloth activated! Switched the portfolio into Dark Cyber Matrix mode!"
-                : "Time Cloth reversed! Restored the portfolio back to Classic Studio mode!"
-          };
-        }
-
-        if (/^(hi+|hello+|hey+|yo+|yaho|namaste|nomoskar|namaskar|নমস্কার|नमस्ते|হ্যালো|हेलो|how are you|how was u|kemon acho|kaise ho)\b/i.test(q.trim())) {
-          return {
-            text:
-              lang === "bn"
-                ? "ইয়াহো! আমি একদম দারুণ আছি! আপনি কেমন আছেন? কোডিং, সাইবার সিকিউরিটি বা মামুন সম্পর্কে কিছু জিজ্ঞাসা করুন!"
-                : lang === "hi"
-                ? "याहो! मैं बिल्कुल बढ़िया हूँ! आप कैसे हैं? मुझसे कोडिंग, साइबर सिक्योरिटी या मामून के बारे में कुछ भी पूछिए!"
-                : "Yaho! I'm doing super great! How are you? Ask me anything about coding, cybersecurity, or Mamun!"
-          };
-        }
-
-        if (q.includes("cybersecurity") || q.includes("cyber security") || q.includes("সাইবার")) {
-          return {
-            text:
-              lang === "bn"
-                ? "Cybersecurity হলো কম্পিউটার, নেটওয়ার্ক এবং ডেটাকে হ্যাকার ও সাইবার আক্রমণ থেকে সুরক্ষিত রাখার প্রযুক্তি! মামুন এটি নিয়েই BCA-তে পড়াশোনা করছেন।"
-                : lang === "hi"
-                ? "Cybersecurity कंप्यूटर, नेटवर्क और डेटा को हैकर्स और साइबर हमलों से सुरक्षित रखने की तकनीक है! मामून इसी विषय में BCA कर रहे हैं।"
-                : "Cybersecurity is the practice of protecting systems, networks, and sensitive data from digital attacks—one of Mamun's core BCA specializations!"
-          };
-        }
-
-        if (q.includes("data science") || q.includes("ডেটা সায়েন্স") || q.includes("डेटा साइंस")) {
-          return {
-            text:
-              lang === "bn"
-                ? "Data Science হলো Python, পরিসংখ্যান এবং AI ব্যবহার করে বড় ডেটা থেকে গুরুত্বপূর্ণ তথ্য খুঁজে বের করার বিজ্ঞান!"
-                : lang === "hi"
-                ? "Data Science Python, सांख्यिकी और AI की मदद से बड़े डेटा से उपयोगी जानकारी निकालने का विज्ञान है!"
-                : "Data Science combines Python, statistics, and machine learning to extract actionable insights from complex datasets!"
-          };
-        }
-
-        if (q.includes("project") || q.includes("c program") || q.includes("complex") || q.includes("lab")) {
-          return {
-            text:
-              lang === "bn"
-                ? "মামুনের কলেজ C ল্যাব প্রজেক্টে `struct complex` ব্যবহার করে জটিল সংখ্যার যোগ এবং গুণ করা হয়েছে! নিচের Academics সেকশন থেকে কোডটি দেখতে ও ডাউনলোড করতে পারবেন।"
-                : lang === "hi"
-                ? "मामून के कॉलेज C लैब प्रोजेक्ट में `struct complex` से कॉम्प्लेक्स नंबर का जोड़ और गुणा किया गया है! नीचे Academics सेक्शन से इसे डाउनलोड करें।"
-                : "Mamun's college C lab project computes Complex Number Addition & Multiplication using `struct complex` on Ubuntu GCC—check the Academics section to inspect or download it!"
-          };
-        }
-
-        if (q.includes("github") && q.includes("linkedin")) {
-          return {
-            text:
-              lang === "bn"
-                ? "এখানে মামুন আহমেদের GitHub এবং LinkedIn প্রোফাইল লিংক দেওয়া হলো:"
-                : lang === "hi"
-                ? "यहाँ मामून अहमद के GitHub और LinkedIn प्रोफाइल लिंक हैं:"
-                : "Here are Mamun Ahamed's official GitHub and LinkedIn links:",
-            linkUrl: "https://www.linkedin.com/in/mamun-ahamed-286b61438",
-            linkLabel: "LinkedIn Profile ↗ (GitHub: github.com/Mamun0730)"
-          };
-        }
-
-        if (q.includes("github")) {
-          return {
-            text:
-              lang === "bn"
-                ? "মামুন আহমেদের কোড এবং প্রজেক্টগুলো GitHub-এ দেখুন:"
-                : lang === "hi"
-                ? "मामून अहमद के कोड और प्रोजेक्ट्स GitHub पर देखें:"
-                : "Check out Mamun Ahamed's repositories on GitHub:",
-            linkUrl: "https://github.com/Mamun0730",
-            linkLabel: "github.com/Mamun0730 ↗"
-          };
-        }
-
-        if (q.includes("linkedin")) {
-          return {
-            text:
-              lang === "bn"
-                ? "মামুন আহমেদের সাথে সরাসরি LinkedIn-এ যুক্ত হন:"
-                : lang === "hi"
-                ? "मामून अहमद से सीधे LinkedIn पर जुड़ें:"
-                : "Connect directly with Mamun Ahamed on LinkedIn:",
-            linkUrl: "https://www.linkedin.com/in/mamun-ahamed-286b61438",
-            linkLabel: "linkedin.com/in/mamun-ahamed-286b61438 ↗"
-          };
-        }
-
-        if (q.includes("copy") || q.includes("memory")) {
-          const summary =
-            "Mamun Ahamed — BCA Data Science & Cybersecurity (1st Year) at Inspiria Knowledge Campus, Siliguri, Darjeeling | Map: https://www.google.com/maps/place//data=!4m2!3m1!19sChIJYYDiT9pG5DkRAvMcoZoJkb4 | GitHub: https://github.com/Mamun0730 | LinkedIn: https://www.linkedin.com/in/mamun-ahamed-286b61438";
-          const ta = document.createElement("textarea");
-          ta.value = summary;
-          document.body.appendChild(ta);
-          ta.select();
-          try {
-            document.execCommand("copy");
-          } catch (err) {}
-          document.body.removeChild(ta);
-          return {
-            text:
-              lang === "bn"
-                ? "মেমোরি ব্রেড অ্যাক্টিভেট হয়েছে! মামুনের পোর্টফোলিও, ক্যাম্পাস ম্যাপ, GitHub এবং LinkedIn লিংক ক্লিপবোর্ডে কপি করা হয়েছে!"
-                : lang === "hi"
-                ? "मेमोरी ब्रेड एक्टिवेट हो गई! मामून का पोर्टफोलियो, कैंपस मैप, GitHub और LinkedIn लिंक क्लिपबोर्ड पर कॉपी हो गया है!"
-                : "Memory Bread activated! Copied Mamun's portfolio summary, campus map, GitHub, and LinkedIn links to your clipboard!"
-          };
-        }
-
-        if (q.includes("mamun") || q.includes("মামুন") || q.includes("मामून") || q.includes("inspiria") || q.includes("campus") || q.includes("map") || q.includes("location") || q.includes("siliguri") || q.includes("কলেজ") || q.includes("कॉलेज")) {
-          return {
-            text:
-              lang === "bn"
-                ? "মামুন আহমেদ শিলিগুড়ি, দার্জিলিং-এর Inspiria Knowledge Campus-এ BCA Data Science & Cybersecurity-এর ১ম বর্ষের ছাত্র! ক্যাম্পাস ম্যাপ দেখুন:"
-                : lang === "hi"
-                ? "मामून अहमद सिलीगुड़ी, दार्जिलिंग के Inspiria Knowledge Campus में BCA Data Science & Cybersecurity के 1st Year के छात्र हैं! कैंपस मैप देखें:"
-                : "Mamun Ahamed is a 1st-year BCA Data Science & Cybersecurity student at Inspiria Knowledge Campus in Siliguri, Darjeeling! View campus map:",
-            linkUrl: "https://www.google.com/maps/place//data=!4m2!3m1!19sChIJYYDiT9pG5DkRAvMcoZoJkb4",
-            linkLabel: "Inspiria Knowledge Campus Map ↗"
-          };
-        }
-
-        if (
-          q.includes("friend") ||
-          q.includes("friends") ||
-          q.includes("bondhu") ||
-          q.includes("dost") ||
-          q.includes("বন্ধু") ||
-          q.includes("दोस्त") ||
-          q.includes("bishnu") ||
-          q.includes("kharampur") ||
-          q.includes("nowaj") ||
-          q.includes("alaul") ||
-          q.includes("chhatrak") ||
-          q.includes("minaj") ||
-          q.includes("tulshiohata") ||
-          q.includes("indranil") ||
-          q.includes("konua") ||
-          q.includes("barrackpore") ||
-          q.includes("biotech") ||
-          q.includes("vivekananda")
-        ) {
-          return {
-            text:
-              lang === "bn"
-                ? "মামুনের প্রিয় বন্ধুরা হলেন: বিষ্ণু সিংহ (খরমপুর), শেখ নওয়াজ আলী (ছত্রাক, ব্যারাকপুরের স্বামী বিবেকানন্দ ইউনিভার্সিটিতে Biotechnology নিয়ে পড়ছেন — বন্ধুদের আদরের 'lover boy' ও 'pig boy'), শেখ আলাউল (ছত্রাক), মিনাজ আলী (তুলসীহাটা) এবং ইন্দ্রনীল সাহা (কোনুয়া)!"
-                : lang === "hi"
-                ? "मामून के खास दोस्त हैं: बिष्णु सिंघा (खरमपुर), शेख नवाज अली (छतरक, जो बैरकपुर की स्वामी विवेकानंद यूनिवर्सिटी में Biotechnology की पढ़ाई कर रहे हैं — दोस्तों के प्यार से 'lover boy' और 'pig boy'), शेख अलाउल (छतरक), मिनाज अली (तुलसीहाटा) और इंद्रनील साहा (कोनुआ)!"
-                : "Mamun's close friends are Bishnu Singha (from Kharampur), Sk Nowaj Ali (from Chhatrak, studying Biotechnology at Swami Vivekananda University, Barrackpore — playfully called 'lover boy' & 'pig boy' by his friends), Sk Alaul (from Chhatrak), Minaj Ali (from Tulshiohata), and Indranil Saha (from Konua)!"
+                ? "**Time Cloth** activated! Switched the portfolio into **Dark Cyber Matrix** mode."
+                : "**Time Cloth** reversed! Restored the portfolio to **Classic Studio** mode."
           };
         }
 
@@ -4356,41 +4389,42 @@ Verified facts about Mamun Ahamed:
       }
 
       async function askMexaBrain(userText) {
-        const fastMatch = getFastPortfolioReply(userText);
-        if (fastMatch) return fastMatch;
+        const gadgetMatch = getLocalGadgetAction(userText);
+        if (gadgetMatch) return gadgetMatch;
 
         const lang = detectLang(userText);
         const langHint =
           lang === "bn"
-            ? " (Reply in clear, natural Bengali script বাংলা.)"
+            ? " [Respond clearly in natural Bengali script বাংলা.]"
             : lang === "hi"
-            ? " (Reply in clear, natural Devanagari Hindi हिंदी.)"
+            ? " [Respond clearly in natural Devanagari Hindi हिंदी.]"
             : "";
 
-        const promptForModel = userText + langHint;
-        mexaChatHistory.push({ role: "user", parts: [{ text: promptForModel }] });
-        if (mexaChatHistory.length > 6) mexaChatHistory.splice(0, mexaChatHistory.length - 6);
+        mexaChatHistory.push({ role: "user", parts: [{ text: userText + langHint }] });
+        if (mexaChatHistory.length > 14) {
+          mexaChatHistory.splice(0, mexaChatHistory.length - 14);
+        }
 
         const apiKey = "";
         if (!apiKey) {
           return {
             text:
               lang === "bn"
-                ? "ইয়াহো! আমি এখন অনলাইনে আছি — আপনি আমাকে কোডিং, সাইবার সিকিউরিটি, ডেটা সায়েন্স বা মামুনের প্রজেক্ট সম্পর্কে যেকোনো প্রশ্ন করতে পারেন!"
+                ? "ইয়াহো! আমি এখন অনলাইনে আছি — কোডিং, সাইবার সিকিউরিটি, ডেটা সায়েন্স বা যেকোনো প্রশ্ন করুন!"
                 : lang === "hi"
-                ? "याहो! मैं अभी तैयार हूँ — आप मुझसे कोडिंग, साइबर सिक्योरिटी, डेटा साइंस या मामून के प्रोजेक्ट्स के बारे में कुछ भी पूछ सकते हैं!"
-                : "Yaho! My 4D pocket is ready — ask me anything about coding, cybersecurity, data science, or Mamun's portfolio!"
+                ? "याहो! मैं अभी तैयार हूँ — कोडिंग, साइबर सिक्योरिटी, डेटा साइंस या कोई भी सवाल पूछिए!"
+                : "Yaho! My 4D pocket is online — ask me any coding, cybersecurity, science, or general question!"
           };
         }
 
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
         const payload = {
           contents: mexaChatHistory,
+          tools: [{ googleSearch: {} }],
           generationConfig: {
-            maxOutputTokens: 140,
-            temperature: 0.65,
-            thinkingConfig: { thinkingBudget: 0 }
+            maxOutputTokens: 420,
+            temperature: 0.65
           },
           systemInstruction: {
             parts: [{ text: MEXA_SYSTEM_PROMPT }]
@@ -4399,7 +4433,7 @@ Verified facts about Mamun Ahamed:
 
         try {
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 3000);
+          const timeoutId = setTimeout(() => controller.abort(), 8000);
           const response = await fetch(apiUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -4410,7 +4444,11 @@ Verified facts about Mamun Ahamed:
 
           if (!response.ok) throw new Error("API error");
           const data = await response.json();
-          const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+          const parts = data?.candidates?.[0]?.content?.parts || [];
+          const replyText = parts
+            .map((p) => (typeof p.text === "string" ? p.text : ""))
+            .join("")
+            .trim();
           if (!replyText) throw new Error("Empty reply");
 
           mexaChatHistory.push({ role: "model", parts: [{ text: replyText }] });
@@ -4419,10 +4457,10 @@ Verified facts about Mamun Ahamed:
           return {
             text:
               lang === "bn"
-                ? "ইয়াহো! আমি এখন অনলাইনে আছি — আপনি আমাকে কোডিং, সাইবার সিকিউরিটি, ডেটা সায়েন্স বা মামুনের প্রজেক্ট সম্পর্কে যেকোনো প্রশ্ন করতে পারেন!"
+                ? "দুঃখিত, নেটওয়ার্কে সাময়িক সমস্যা হচ্ছে। একটু পরে আবার চেষ্টা করুন!"
                 : lang === "hi"
-                ? "याहो! मैं अभी तैयार हूँ — आप मुझसे कोडिंग, साइबर सिक्योरिटी, डेटा साइंस या मामून के प्रोजेक्ट्स के बारे में कुछ भी पूछ सकते हैं!"
-                : "Yaho! My 4D pocket is ready — ask me anything about coding, cybersecurity, data science, or Mamun's portfolio!"
+                ? "क्षमा करें, नेटवर्क में थोड़ी समस्या आ रही है। कृपया थोड़ी देर बाद फिर कोशिश करें!"
+                : "Sorry, my 4D pocket hit a brief network hiccup—please try asking again in a moment!"
           };
         }
       }
@@ -4437,17 +4475,13 @@ Verified facts about Mamun Ahamed:
 
         appendMsg(text, "user");
 
-        const fastMatch = getFastPortfolioReply(text);
-        if (fastMatch) {
-          appendMsg(fastMatch.text, "bot", fastMatch.linkUrl, fastMatch.linkLabel);
-          speakAsMexa(fastMatch.text);
-          isMexaBusy = false;
-          if (mexaSendBtn) mexaSendBtn.disabled = false;
-          return;
-        }
-
         const lang = detectLang(text);
-        const thinkingLabel = lang === "bn" ? "মেক্সা ভাবছে..." : lang === "hi" ? "मेक्सा सोच रहा है..." : "MEXA is thinking...";
+        const thinkingLabel =
+          lang === "bn"
+            ? "মেক্সা ভাবছে ও বিশ্লেষণ করছে..."
+            : lang === "hi"
+            ? "मेक्सा सोच रहा है..."
+            : "MEXA is thinking...";
         const typingBubble = appendMsg(thinkingLabel, "bot");
 
         const res = await askMexaBrain(text);
@@ -4660,7 +4694,7 @@ int main() {
         });
       }
 
-      /* ================= 8. INTERACTIVE 3D TILT ON DOMAIN CELLS (POINTER ONLY) ================= */
+      /* ================= 8. INTERACTIVE 3D TILT ON DOMAIN CELLS ================= */
       document.querySelectorAll(".logo-cell").forEach((cell) => {
         cell.addEventListener("mousemove", (e) => {
           if (deviceProfile.isTouch || deviceProfile.activePerf === "eco") return;
